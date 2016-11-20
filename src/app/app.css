@@ -1,0 +1,61 @@
+.ro-link {
+  margin: 30px 0 !important; }
+
+.ro-out-marging {
+  margin: 20px 0; }
+
+.ro-button-flex {
+  position: relative; }
+
+.ro-icon-button {
+  position: absolute;
+  left: 10px;
+  font-size: 30px; }
+
+.ro-margin-top {
+  margin-top: 50px; }
+
+.item-md {
+  padding-left: 0; }
+
+.ro-avatart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px; }
+
+.ro-font-grey {
+  color: grey; }
+
+.item-md ion-avatar img {
+  max-width: 4rem;
+  max-height: 4rem;
+  border-radius: 0; }
+
+.dot {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  margin: 10px auto;
+  position: relative; }
+
+.dot-white {
+  background-color: #fff; }
+
+.dot-green {
+  background-color: #00fe00; }
+
+.dot-yellow {
+  background-color: #fffe00; }
+
+.dot-orange {
+  background-color: #ff8600; }
+
+.dot-red {
+  background-color: #ff0100; }
+
+.row-dots {
+  text-align: center;
+  border-bottom: 1px solid #dedede; }
+
+/*# sourceMappingURL=app.css.map */

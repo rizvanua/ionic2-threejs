@@ -1,0 +1,25 @@
+<!--
+  Generated template for the Menupage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Walkthroughs</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid class="ro-out-marging">
+    <ion-list>
+      <button class='ro-button'  [ngClass]="{'ro-margin-top':i!==0}" ion-button full color="light"  *ngFor="let p of pages; let i = index" (click)="openPage(p)">
+        <ion-icon class="ro-icon-button" [name]="p.icon"></ion-icon>
+        {{p.title}}
+      </button>
+    </ion-list>
+  </ion-grid>
+</ion-content>

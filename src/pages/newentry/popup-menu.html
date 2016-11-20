@@ -1,0 +1,20 @@
+<ion-list>
+  <ion-list-header>Select level</ion-list-header>
+  <ion-row class="row-dots">
+    <ion-col>
+      <button ion-button="dot" (click)="getLevel(1,bodyPart)" class="dot-green" [class.selected]="background == 'white'"></button>
+    </ion-col>
+    <ion-col>
+      <button ion-button="dot" (click)="getLevel(2,bodyPart)" class="dot-yellow" [class.selected]="background == 'tan'"></button>
+    </ion-col>
+    <ion-col>
+      <button ion-button="dot" (click)="getLevel(3,bodyPart)" class="dot-orange" [class.selected]="background == 'grey'"></button>
+    </ion-col>
+    <ion-col>
+      <button ion-button="dot" (click)="getLevel(4,bodyPart)" class="dot-red" [class.selected]="background == 'black'"></button>
+    </ion-col>
+  </ion-row>
+  <button ion-item (click)="close()">Take a picture</button>
+  <button ion-item (click)="close()">Add a file</button>
+  <div>{{bodyPart}}</div>
+</ion-list>

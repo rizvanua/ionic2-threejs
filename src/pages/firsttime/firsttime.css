@@ -1,0 +1,33 @@
+page-firsttime #animated_div {
+  width: 76px;
+  height: 60px;
+  background: #92B901;
+  color: #ffffff;
+  position: relative;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 10px;
+  animation: animated_div 5s 3;
+  border-radius: 5px; }
+@keyframes animated_div {
+  0% {
+    transform: rotate(0deg);
+    left: 0px; }
+  25% {
+    transform: rotate(20deg);
+    left: 0px; }
+  50% {
+    transform: rotate(0deg);
+    left: 80%; }
+  55% {
+    transform: rotate(0deg);
+    left: 80%; }
+  70% {
+    transform: rotate(0deg);
+    left: 90%;
+    background: #1ec7e6; }
+  100% {
+    transform: rotate(-360deg);
+    left: 0px; } }
+
+/*# sourceMappingURL=firsttime.css.map */

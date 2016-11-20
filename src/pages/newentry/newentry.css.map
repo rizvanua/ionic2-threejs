@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AACE,oBAAO;EACL,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,IAAI",
+"sources": ["newentry.scss"],
+"names": [],
+"file": "newentry.css"
+}

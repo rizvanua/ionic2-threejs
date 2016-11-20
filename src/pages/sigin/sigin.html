@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Log in Page</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid class="ro-out-marging">
+    <form>
+      <ion-item>
+        <ion-input type="text" placeholder="Log In"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="password" placeholder="Password"></ion-input>
+      </ion-item>
+        <button class="ro-margin-top" color="secondary" ion-button type="submit" full (click)="openAccesPage()">Log In</button>
+    </form>
+    <p class="ro-link"><a (click)="openRecoverpassPage()">Forgot password</a></p>
+    <button ion-button type="button" full (click)="openRegistrationPage()">Sign Up</button>
+  </ion-grid>
+</ion-content>
+
