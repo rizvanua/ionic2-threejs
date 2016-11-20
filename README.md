@@ -1,7 +1,7 @@
-Ionic 2 App Base
+Ionic 2 Three js  App
 =====================
 
-This is the base template for Ionic 2 starter apps.
+This is Ionic 2 apps.
 
 ## Using this project
 
@@ -17,4 +17,4 @@ Then run:
 $ ionic start myApp
 ```
 
-More info on this can be found on the Ionic [Getting Started](http://ionicframework.com/docs/v2/getting-started/) page.
+More info on this can be found on the Ionic.
