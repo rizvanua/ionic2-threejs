@@ -1,6 +1,9 @@
-import {Component} from '@angular/core';
+import {Component,ViewChild} from '@angular/core';
 import {ViewController} from 'ionic-angular';
-import * as moment from 'moment';
+
+import {LocalStorageService} from "../../services/LocalStorageService";
+import {returnPointService} from "../../services/returnPointService";
+/*import {EmitterService} from "../../services/EmitterService";*/
 /*
  Generated class for the Newentry page.
 
@@ -8,30 +11,77 @@ import * as moment from 'moment';
  Ionic pages and navigation.
  */
 @Component({
-  templateUrl: `popup-menu.html`
+  templateUrl: `popup-menu.html`,
+  providers:[LocalStorageService]
 })
 export class PopoverComponent  {
 
   public bodyPart:any;
   public date: any;
-  constructor(public viewCtrl: ViewController ) {
+  public levelNum:any; 
+  public gotFile=false;
+  public fileName:string;  
+  private switchLevel=true;
+  @ViewChild('inputFile') inputFile: any;
+  constructor(public viewCtrl: ViewController, public LocalStorageService:LocalStorageService, private _returnPointService: returnPointService /*private emitter:EmitterService*/) {
     this.bodyPart=viewCtrl.data.bodyPart;
-
+	
+  }
+  public OpenFile(){
+  this.inputFile.nativeElement.click();
+  console.log(this.inputFile.nativeElement.value);
+  }
+  
+  public Test(){
+  console.log(this.inputFile.nativeElement.value.length);
+  if(this.inputFile.nativeElement.value.length>0){
+  this.fileName=this.inputFile.nativeElement.value;
+	this.gotFile=true;
+  }
+  console.log(this.inputFile.nativeElement.value);
+  }
+  
+  public getCamera(){
+   
+  }
+  
+   ionViewDidLoad() {   
+   
+  }
+  
+  /*Show/hide level menu*/
+ 
+  public ShowLevel(){
+  this.switchLevel=!this.switchLevel;
+  return this.switchLevel;
   }
 
 /*Get data about user choice*/
-  private getLevel(num,bp){
-    console.log(num);
-    console.log(bp);
-    this.date=moment();
-    console.log(this.date._d);
+  public getLevel(num,bp){
+    
+	this.levelNum=num;
+    let textObj={
+      'level':num,
+      "name": bp.name,
+      'point':bp.point,
+      'face':bp.face,
+      "time": new Date()
+    };
+    this._returnPointService.getPoint(textObj);
+    /**/
+    this.LocalStorageService.save(textObj,'lastActive');
+    this.LocalStorageService.saveIntoLocalStorage(textObj,'history');
+    /**/
+    /*console.log(this.date._d);
     localStorage.setItem('level',num);
     localStorage.setItem('bodyPart',bp);
-    localStorage.setItem('date',this.date._d)
+    localStorage.setItem('date',this.date._d)*/
   }
 
 
-  /*close() {
+  close() {
    this.viewCtrl.dismiss();
-   }*/
+   }
+
+
 }

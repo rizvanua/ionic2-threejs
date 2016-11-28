@@ -1,20 +1,29 @@
-<ion-list>
-  <ion-list-header>Select level</ion-list-header>
-  <ion-row class="row-dots">
-    <ion-col>
-      <button ion-button="dot" (click)="getLevel(1,bodyPart)" class="dot-green" [class.selected]="background == 'white'"></button>
-    </ion-col>
-    <ion-col>
-      <button ion-button="dot" (click)="getLevel(2,bodyPart)" class="dot-yellow" [class.selected]="background == 'tan'"></button>
-    </ion-col>
-    <ion-col>
-      <button ion-button="dot" (click)="getLevel(3,bodyPart)" class="dot-orange" [class.selected]="background == 'grey'"></button>
-    </ion-col>
-    <ion-col>
-      <button ion-button="dot" (click)="getLevel(4,bodyPart)" class="dot-red" [class.selected]="background == 'black'"></button>
-    </ion-col>
-  </ion-row>
-  <button ion-item (click)="close()">Take a picture</button>
-  <button ion-item (click)="close()">Add a file</button>
-  <div>{{bodyPart}}</div>
-</ion-list>
+<div id="popover-menu">
+  <ion-list>
+    <button ion-item class='round-menu-main' style="margin-left: 60px;"(click)="ShowLevel()"><ion-icon class="ro-icon-button"  name="game-controller-b"></ion-icon></button>
+    <button ion-item class='round-menu-main' style="margin-left: 20px;"(click)="getCamera()"><ion-icon class="ro-icon-button" style="left: 12px;" name="image"></ion-icon></button>
+    <button ion-item class='round-menu-main' style="margin-left: 50px;"(click)="OpenFile()"><ion-icon class="ro-icon-button" style="left: 15px;" name="document"></ion-icon></button>
+  </ion-list>
+  <input style="display:none" #inputFile type="file" (change)="Test()"/>  
+  <button ion-item class='round-menu-main' style="margin-left: 12px; margin-bottom: 32px;" (click)="close()"><ion-icon class="ro-icon-button" style="left: 16px;" name="close"></ion-icon></button>
+</div>
+<div class="add-file-name" *ngIf="gotFile"> You added file: {{fileName}}</div>
+<div id="popover-level-list" #switchLevel [ngClass]="{hideElement:ShowLevel()}">	
+    <div class=" wrap-button-block">
+      <div class="row-dots">
+	  <div class="level-text">Chose level</div>
+        <ion-col>
+          <button ion-button="dot" (click)="getLevel(1,bodyPart)" class="dot-green" [class.selected]="levelNum == 1"></button>
+        </ion-col>
+        <ion-col>
+          <button ion-button="dot" (click)="getLevel(2,bodyPart)" class="dot-yellow" [class.selected]="levelNum == 2"></button>
+        </ion-col>
+        <ion-col>
+          <button ion-button="dot" (click)="getLevel(3,bodyPart)" class="dot-orange" [class.selected]="levelNum == 3"></button>
+        </ion-col>
+        <ion-col>
+          <button ion-button="dot" (click)="getLevel(4,bodyPart)" class="dot-red" [class.selected]="levelNum == 4"></button>
+        </ion-col>
+      </div>
+    </div>
+</div>

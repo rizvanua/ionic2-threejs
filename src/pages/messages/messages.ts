@@ -12,7 +12,7 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'messages.html'
 })
 export class MessagesPage {
-  private messages: Array<{name: string, nick: string, img: string, day: string, text:string}>;
+  public messages: Array<{name: string, nick: string, img: string, day: string, text:string}>;
 
   constructor(public navCtrl: NavController) {
     this.messages=[

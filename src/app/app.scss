@@ -53,11 +53,12 @@
   border-radius: 0;
 }
 .dot {
-  height: 30px;
-  width: 30px;
+  height: 46px;
+  width: 46px;
   border-radius: 50%;
   margin: 10px auto;
   position: relative;
+  border: 2px solid #ccc;
 }
 .dot-white{
   background-color: #fff;
@@ -81,4 +82,120 @@
 .row-dots {
   text-align: center;
   border-bottom: 1px solid #dedede;
+
 }
+
+ion-backdrop{
+  opacity: .7;
+}
+
+.popover-content{
+  top: 0!important;
+  left: 0!important;
+  width: 100%!important;
+  height: 100%!important;
+  max-height: 100%!important;
+  overflow: hidden;
+  background:none!important;
+  box-shadow:none!important;
+
+}
+
+.popover-viewport {
+  height: 100%;
+}
+.dot.selected {
+    border-width: 2px;
+    border-color: #327eff;
+}
+.popover-page .dot {
+    border: 2px solid #ccc;
+}
+
+#popover-menu{
+  width: 300px;
+  height: 300px;
+  border: 1px solid;
+  border-radius: 50%;
+  position: absolute;
+  right: -120px;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  z-index:1;
+  background: #001018;
+  .item{
+	border: 1px solid;
+	.label-md {
+		display: flex;
+		align-items: center;
+		}
+	}
+  ion-list{
+	width:100px;
+	.list-md{
+		margin:0;
+		}
+	}
+
+	.round-menu-main{
+	min-height: 6.0rem;
+	margin-top: 2rem;
+    margin-bottom: 2rem;
+	width: 60px;
+    height: 60px;
+	border-radius: 50%;
+	/*border: none;*/
+	.item-inner {
+    border: none;
+}
+	.ro-icon-button{
+		position: absolute;
+		left: 10px;
+		font-size: 4.4rem;
+		/*top: 0;*/
+	}
+}
+}
+
+#popover-level-list {
+  width: calc(100% - 120px);
+  height: 100%;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  z-index:0;
+  .row-dots{
+	border-bottom:none;
+  }
+}
+.wrap-button-block{
+  margin: auto;
+  width: inherit;
+  height: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.level-text {
+    font-size: 2.5rem;
+    color: white;
+}
+
+.hideElement{
+display:none;
+}
+
+.add-file-name {
+    position: absolute;
+    width: 200px;
+    background: white;
+    bottom: 0;
+}
+
+
