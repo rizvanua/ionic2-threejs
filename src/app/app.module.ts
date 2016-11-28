@@ -19,6 +19,9 @@ import {ProfilePage} from "../pages/profile/profile";
 import {CanvasComponent} from "../pages/newentry/canvas";
 import {PopoverComponent} from "../pages/newentry/popup-menu";
 import {EmitterService} from "../services/EmitterService";
+import {LocalStorageService} from "../services/LocalStorageService";
+import {returnPointService} from "../services/returnPointService";
+
 
 @NgModule({
   declarations: [
@@ -63,6 +66,6 @@ import {EmitterService} from "../services/EmitterService";
     CanvasComponent,
     PopoverComponent
   ],
-  providers: [EmitterService]
+  providers: [EmitterService,LocalStorageService,returnPointService]
 })
 export class AppModule {}

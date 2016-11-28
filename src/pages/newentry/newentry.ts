@@ -13,8 +13,7 @@ import {PopoverComponent} from "./popup-menu";
 
 @Component({
   selector: 'page-newentry',
-  templateUrl: 'newentry.html',
-  providers: [EmitterService]
+  templateUrl: 'newentry.html'
 })
 export class NewentryPage implements OnDestroy{
   /*private subscription;*/
@@ -22,9 +21,10 @@ export class NewentryPage implements OnDestroy{
   private subscription: Subscription;
 
   constructor(public navCtrl: NavController,public popoverCtrl: PopoverController,private emitter:EmitterService) {
-    //Here we get data from child component
-    this.subscription=this.emitter.subscribe(msg => {
-      this.presentPopover(msg);
+    //Here we get data from child component Canvas
+    this.subscription=this.emitter.subscribe((msg) => {
+      /*console.log(msg);*/
+      this.presentPopover(msg);//and pass to child component popup-menu
     });
 
   }

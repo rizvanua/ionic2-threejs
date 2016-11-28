@@ -1,5 +1,8 @@
 page-newentry canvas {
   width: 100%;
   height: 100%; }
+page-newentry .scroll-content {
+  padding: 0 !important;
+  overflow: hidden; }
 
 /*# sourceMappingURL=newentry.css.map */
