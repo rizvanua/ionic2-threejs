@@ -21,6 +21,7 @@ import {PopoverComponent} from "../pages/newentry/popup-menu";
 import {EmitterService} from "../services/EmitterService";
 import {LocalStorageService} from "../services/LocalStorageService";
 import {returnPointService} from "../services/returnPointService";
+import { Storage } from '@ionic/storage';
 
 
 @NgModule({
@@ -66,6 +67,6 @@ import {returnPointService} from "../services/returnPointService";
     CanvasComponent,
     PopoverComponent
   ],
-  providers: [EmitterService,LocalStorageService,returnPointService]
+  providers: [EmitterService,LocalStorageService,returnPointService,Storage]
 })
 export class AppModule {}

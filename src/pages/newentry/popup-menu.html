@@ -1,14 +1,15 @@
 <div id="popover-menu">
   <ion-list>
+    <button>{{switchLevel}}</button>
     <button ion-item class='round-menu-main' style="margin-left: 60px;"(click)="ShowLevel()"><ion-icon class="ro-icon-button"  name="game-controller-b"></ion-icon></button>
     <button ion-item class='round-menu-main' style="margin-left: 20px;"(click)="getCamera()"><ion-icon class="ro-icon-button" style="left: 12px;" name="image"></ion-icon></button>
     <button ion-item class='round-menu-main' style="margin-left: 50px;"(click)="OpenFile()"><ion-icon class="ro-icon-button" style="left: 15px;" name="document"></ion-icon></button>
   </ion-list>
-  <input style="display:none" #inputFile type="file" (change)="Test()"/>  
+  <input style="display:none" #inputFile type="file" (change)="Test()"/>
   <button ion-item class='round-menu-main' style="margin-left: 12px; margin-bottom: 32px;" (click)="close()"><ion-icon class="ro-icon-button" style="left: 16px;" name="close"></ion-icon></button>
 </div>
 <div class="add-file-name" *ngIf="gotFile"> You added file: {{fileName}}</div>
-<div id="popover-level-list" #switchLevel [ngClass]="{hideElement:ShowLevel()}">	
+<div id="popover-level-list"  [ngClass]="{hideElement: switchLevel}">
     <div class=" wrap-button-block">
       <div class="row-dots">
 	  <div class="level-text">Chose level</div>

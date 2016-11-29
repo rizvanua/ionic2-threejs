@@ -18,20 +18,20 @@ export class PopoverComponent  {
 
   public bodyPart:any;
   public date: any;
-  public levelNum:any; 
+  public levelNum:any;
   public gotFile=false;
-  public fileName:string;  
-  private switchLevel=true;
+  public fileName:string;
+  public switchLevel=true;
   @ViewChild('inputFile') inputFile: any;
   constructor(public viewCtrl: ViewController, public LocalStorageService:LocalStorageService, private _returnPointService: returnPointService /*private emitter:EmitterService*/) {
     this.bodyPart=viewCtrl.data.bodyPart;
-	
+
   }
   public OpenFile(){
   this.inputFile.nativeElement.click();
   console.log(this.inputFile.nativeElement.value);
   }
-  
+
   public Test(){
   console.log(this.inputFile.nativeElement.value.length);
   if(this.inputFile.nativeElement.value.length>0){
@@ -40,17 +40,17 @@ export class PopoverComponent  {
   }
   console.log(this.inputFile.nativeElement.value);
   }
-  
+
   public getCamera(){
-   
+
   }
-  
-   ionViewDidLoad() {   
-   
+
+   ionViewDidLoad() {
+
   }
-  
+
   /*Show/hide level menu*/
- 
+
   public ShowLevel(){
   this.switchLevel=!this.switchLevel;
   return this.switchLevel;
@@ -58,7 +58,7 @@ export class PopoverComponent  {
 
 /*Get data about user choice*/
   public getLevel(num,bp){
-    
+
 	this.levelNum=num;
     let textObj={
       'level':num,
@@ -71,6 +71,7 @@ export class PopoverComponent  {
     /**/
     this.LocalStorageService.save(textObj,'lastActive');
     this.LocalStorageService.saveIntoLocalStorage(textObj,'history');
+    this.close();
     /**/
     /*console.log(this.date._d);
     localStorage.setItem('level',num);
