@@ -1,4 +1,4 @@
-import {Component, AfterViewInit, ElementRef, Input, ViewChild, HostListener} from '@angular/core';
+import {Component, OnInit, AfterViewInit, ElementRef, Input, ViewChild, HostListener} from '@angular/core';
 import * as THREE from 'three';
 import OrbitControls from 'three-orbitcontrols';//module for rotation camera
 import {EmitterService} from "../../services/EmitterService";//Initialization of emitter to pass data into parent component (see NewentryPage)
@@ -15,7 +15,7 @@ import {LocalStorageService} from "../../services/LocalStorageService";
   selector: 'three-d-scene',
   templateUrl:  'canvas.html'
 })
-export class CanvasComponent implements AfterViewInit {
+export class CanvasComponent implements OnInit, AfterViewInit {
 
   /* PROPERTIES FOR SCENE AND MANIPULATING OF OBJECT (PRIVATE PROPERTIES) */
   /*Main properties*/
@@ -34,7 +34,8 @@ export class CanvasComponent implements AfterViewInit {
   private aspectRatio:number;
 
   /*user interaction properties*/
-  private line: any;
+  private arr=['Ear Right', 'Ear Left', 'Forehead', 'Top of skull', 'Lips', 'Nose', 'Right Eye', 'Left Eye', 'Chin', 'Right Cheek', 'Left Cheek', 'Neck', 'Left Shoulder', 'Right Shoulder', 'Back', 'Chest', 'Back of the head', 'Temple'];
+  private line:any={};
   private intersects: any;
   private raycaster: THREE.Raycaster;
   private mouse: THREE.Vector2;
@@ -49,11 +50,12 @@ export class CanvasComponent implements AfterViewInit {
   private subscription:Subscription;
   private itemPoint:any;
   private itemFace:THREE.Vector3;
-  private mouseHelperMaterial: THREE.MeshLambertMaterial;
+  private mouseHelperMaterial:any={};
   private itemLevel:any;
+  private itemName:any;
 
   /*last selected pin*/
-  private mouseHelper:THREE.Mesh;
+  private mouseHelper:any={};
   /*private geometry:THREE.Geometry;*/
 
 
@@ -70,8 +72,18 @@ export class CanvasComponent implements AfterViewInit {
         this.itemPoint=item.point;
         this.itemFace=item.face;
         this.itemLevel=item.level;
-        this.markLastPoint(this.itemFace,this.itemPoint,this.itemLevel);
+        this.itemName=item.name;
+        this.markLastPoint(this.itemFace,this.itemPoint,this.itemLevel,this.itemName);
         })
+  }
+  ngOnInit(){
+    /*Prepere objects for PointerMarkers*/
+    for(let i=0; i<this.arr.length; i++){
+      console.log('ngOnInit');
+      Object.defineProperty(this.line, this.arr[i],{value:{}, configurable: true, writable: true, enumerable: true });
+      Object.defineProperty(this.mouseHelper, this.arr[i],{value:{}, configurable: true, writable: true, enumerable: true });
+      Object.defineProperty(this.mouseHelperMaterial, this.arr[i],{value:{}, configurable: true, writable: true, enumerable: true });
+    }
   }
     ionViewDidLoad() {
     this.renderer.render(this.scene, this.camera);
@@ -106,14 +118,21 @@ export class CanvasComponent implements AfterViewInit {
 
     let geometry = new THREE.Geometry();
     geometry.vertices.push( new THREE.Vector3(), new THREE.Vector3() );
-    this.line = new THREE.Line( geometry, new THREE.LineBasicMaterial( { linewidth: 4 } ) );
-    this.scene.add( this.line );
+    for(let i=0; i<this.arr.length; i++){
+      let prop=this.arr[i];
+      this.line[prop] = new THREE.Line( geometry, new THREE.LineBasicMaterial( { linewidth: 4 } ) );
+      this.scene.add( this.line[prop]);
+    }
+
 
     /*this.mouseHelper = new THREE.Mesh( new THREE.BoxGeometry( 1, 1, 10 ), new THREE.MeshNormalMaterial() );*/
-    this.mouseHelperMaterial = new THREE.MeshLambertMaterial( { color: "rgb(255, 90, 0)", vertexColors:THREE.FaceColors} );
-    this.mouseHelper = new THREE.Mesh( new THREE.BoxGeometry( 1, 1, 10 ), this.mouseHelperMaterial );
-    this.mouseHelper.visible = false;
-    this.scene.add( this.mouseHelper );
+    for(let i=0; i<this.arr.length; i++) {
+      let prop=this.arr[i];
+      this.mouseHelperMaterial[prop] = new THREE.MeshLambertMaterial( { color: "rgb(255, 90, 0)", vertexColors:THREE.FaceColors} );
+      this.mouseHelper[prop] = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 10), this.mouseHelperMaterial[prop]);
+      this.mouseHelper[prop].visible = false;
+      this.scene.add(this.mouseHelper[prop]);
+    }
 
     /*this.getLastActivePoint();*/
   }
@@ -177,18 +196,37 @@ export class CanvasComponent implements AfterViewInit {
        'face':this.intersects[ 0 ].face.normal
      };
    }
-
-   private getLastActivePoint(){
-if(window.localStorage.length>0){
+/*
+  private getLastActivePoint(){
+  if(window.localStorage.length>0){
      let lastActiveObject=this.LocalStorageService.get('lastActive');
      this.itemFace=lastActiveObject.face;
      this.itemPoint=lastActiveObject.point;
      this.itemLevel=lastActiveObject.level;
-     this.markLastPoint(this.itemFace,this.itemPoint,this.itemLevel);
+     this.itemName=lastActiveObject.name;
+     this.markLastPoint(this.itemFace,this.itemPoint,this.itemLevel,this.itemName);
 }
    }
+*/
+  private getActivePoints(){
+    for(let i=0; i<this.arr.length; i++){
+      let prop=this.arr[i];
+      if(window.localStorage.getItem(prop) != null&&window.localStorage[prop].length>0){
+        console.log(i);
+        let lastActiveObject=this.LocalStorageService.get(prop);
+        console.log(lastActiveObject);
+        this.itemFace=lastActiveObject.face;
+        this.itemPoint=lastActiveObject.point;
+        this.itemLevel=lastActiveObject.level;
+        this.itemName=lastActiveObject.name;
 
-  private markLastPoint(itemFace,itemPoint,level){
+        console.log(lastActiveObject);
+       this.markLastPoint(this.itemFace,this.itemPoint,this.itemLevel,this.itemName);
+      }
+    }
+  }
+
+  private markLastPoint(itemFace,itemPoint,level,itemName){
     let color:string;
     if(level==1){
       color="rgb(0, 255, 0)";
@@ -209,11 +247,11 @@ if(window.localStorage.length>0){
        normal: new THREE.Vector3()
      };
 
-    this.mouseHelperMaterial.color.set(color);
-    this.mouseHelperMaterial.needsUpdate=true;
+    this.mouseHelperMaterial[itemName].color.set(color);
+    this.mouseHelperMaterial[itemName].needsUpdate=true;
 
      let p = itemPoint;
-     this.mouseHelper.position.copy( p );
+     this.mouseHelper[itemName].position.copy( p );
      intersection.point.copy( p );
 
       itemFace=new THREE.Vector3(itemFace.x,itemFace.y,itemFace.z);
@@ -222,11 +260,12 @@ if(window.localStorage.length>0){
      n.add( itemPoint );
 
      intersection.normal.copy( itemFace );
-     this.mouseHelper.lookAt( n );
+    this.mouseHelper[itemName].visible = true;
+     this.mouseHelper[itemName].lookAt( n );
 
-     this.line.geometry.vertices[ 0 ].copy( intersection.point );
-     this.line.geometry.vertices[ 1 ].copy( n );
-     this.line.geometry.verticesNeedUpdate = true;
+     this.line[itemName].geometry.vertices[ 0 ].copy( intersection.point );
+     this.line[itemName].geometry.vertices[ 1 ].copy( n );
+     this.line[itemName].geometry.verticesNeedUpdate = true;
 
      intersection.intersects = true;
    /*}*/
@@ -415,11 +454,14 @@ if(window.localStorage.length>0){
     this.renderer.setSize( window.innerWidth, window.innerHeight );
   }
   ngAfterViewInit() {
+    console.log('ngAfterViewInit');
+    console.log(this.line);
     this.createScene();
     this.create3DObject();
     this.pinSet();
     this.startRenderingLoop();
-    this.getLastActivePoint();
+    this.getActivePoints();
+    /*this.getLastActivePoint();*/
   }
 
   ngOnDestroy() {

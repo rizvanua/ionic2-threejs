@@ -72,7 +72,7 @@ export class PopoverComponent  {
     this._returnPointService.getPoint(textObj);
     /**/
     this.LocalStorageService.save(textObj,'lastActive');
-    this.LocalStorageService.saveIntoLocalStorage(textObj,bp.name);
+    this.LocalStorageService.save(textObj,bp.name);
 
     this.SQLiteService.insertIntoMainDB(textObj);
 
