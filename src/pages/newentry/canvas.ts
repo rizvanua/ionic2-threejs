@@ -69,7 +69,7 @@ export class CanvasComponent implements AfterViewInit {
       item => {this.itemData = item;
         this.itemPoint=item.point;
         this.itemFace=item.face;
-        this.itemLevel=item.level;        
+        this.itemLevel=item.level;
         this.markLastPoint(this.itemFace,this.itemPoint,this.itemLevel);
         })
   }
@@ -103,17 +103,18 @@ export class CanvasComponent implements AfterViewInit {
     } );
   }
   private pinSet(){
+
     let geometry = new THREE.Geometry();
     geometry.vertices.push( new THREE.Vector3(), new THREE.Vector3() );
     this.line = new THREE.Line( geometry, new THREE.LineBasicMaterial( { linewidth: 4 } ) );
     this.scene.add( this.line );
-    
+
     /*this.mouseHelper = new THREE.Mesh( new THREE.BoxGeometry( 1, 1, 10 ), new THREE.MeshNormalMaterial() );*/
     this.mouseHelperMaterial = new THREE.MeshLambertMaterial( { color: "rgb(255, 90, 0)", vertexColors:THREE.FaceColors} );
     this.mouseHelper = new THREE.Mesh( new THREE.BoxGeometry( 1, 1, 10 ), this.mouseHelperMaterial );
-    /*mouseHelper.visible = false;*/
+    this.mouseHelper.visible = false;
     this.scene.add( this.mouseHelper );
-    
+
     /*this.getLastActivePoint();*/
   }
   /**
@@ -210,7 +211,7 @@ if(window.localStorage.length>0){
 
     this.mouseHelperMaterial.color.set(color);
     this.mouseHelperMaterial.needsUpdate=true;
-    
+
      let p = itemPoint;
      this.mouseHelper.position.copy( p );
      intersection.point.copy( p );
@@ -242,47 +243,47 @@ if(window.localStorage.length>0){
   if(this.intersects[0]){
     /*Here we compare point position with name of body parts*/
     /*Ears*/
-    if(this.intersects[0].point.x>12.5&&this.intersects[0].point.y>0&&this.intersects[0].point.y<19){     
+    if(this.intersects[0].point.x>12.5&&this.intersects[0].point.y>0&&this.intersects[0].point.y<19){
       this.functionObject('Ear Right');
       this.emitter.next(this.dataObj);
 
     }
-    else if(this.intersects[0].point.x<-14.6&&this.intersects[0].point.y>0&&this.intersects[0].point.y<19){     
+    else if(this.intersects[0].point.x<-14.6&&this.intersects[0].point.y>0&&this.intersects[0].point.y<19){
       this.functionObject('Ear Left');
       this.emitter.next(this.dataObj);
 
     }
     /*Forehead*/
-    else if(this.intersects[0].point.y>21&&this.intersects[0].point.y<31&&this.intersects[0].point.z>9){     
+    else if(this.intersects[0].point.y>21&&this.intersects[0].point.y<31&&this.intersects[0].point.z>9){
       this.functionObject('Forehead');
       this.emitter.next(this.dataObj);
 
     }
     /*Top of skull*/
-    else if(this.intersects[0].point.y>31){      
+    else if(this.intersects[0].point.y>31){
       this.functionObject('Top of skull');
       this.emitter.next(this.dataObj);
 
     }
     else if(this.intersects[0].point.y>0&&this.intersects[0].point.y<=7.5&&this.intersects[0].point.x>-7&&this.intersects[0].point.x<2.5&&this.intersects[0].point.z>20){
-      /*Lips*/      
+      /*Lips*/
       this.functionObject('Lips');
       this.emitter.next(this.dataObj);
 
     }
     /*Nose*/
-    else if(this.intersects[0].point.y>7&&this.intersects[0].point.y<14&&this.intersects[0].point.x>-8&&this.intersects[0].point.x<6&&this.intersects[0].point.z>3){      
+    else if(this.intersects[0].point.y>7&&this.intersects[0].point.y<14&&this.intersects[0].point.x>-8&&this.intersects[0].point.x<6&&this.intersects[0].point.z>3){
       this.functionObject('Nose');
       this.emitter.next(this.dataObj);
 
     }
-    else if(this.intersects[0].point.y>14&&this.intersects[0].point.y<21&&this.intersects[0].point.x>-3&&this.intersects[0].point.x<1.8&&this.intersects[0].point.z>3){      
+    else if(this.intersects[0].point.y>14&&this.intersects[0].point.y<21&&this.intersects[0].point.x>-3&&this.intersects[0].point.x<1.8&&this.intersects[0].point.z>3){
       this.functionObject('Nose');
       this.emitter.next(this.dataObj);
 
     }
     /*Eyes*/
-    else if(this.intersects[0].point.y>=14&&this.intersects[0].point.y<=21&&this.intersects[0].point.x>=1.8&&this.intersects[0].point.z>14){     
+    else if(this.intersects[0].point.y>=14&&this.intersects[0].point.y<=21&&this.intersects[0].point.x>=1.8&&this.intersects[0].point.z>14){
       this.functionObject('Right Eye');
       this.emitter.next(this.dataObj);
 
@@ -321,11 +322,11 @@ if(window.localStorage.length>0){
 
     }
     /*Body*/
-    else if(this.intersects[0].point.y<-18){      
+    else if(this.intersects[0].point.y<-18){
 	  if(this.intersects[0].point.x<-10&&this.intersects[0].point.z>-11){
 		  this.functionObject('Left Shoulder');
-		  this.emitter.next(this.dataObj);				
-			}		
+		  this.emitter.next(this.dataObj);
+			}
 			else if	(this.intersects[0].point.x>8&&this.intersects[0].point.z>-11){
 			this.functionObject('Right Shoulder');
 			this.emitter.next(this.dataObj);
@@ -357,7 +358,7 @@ if(window.localStorage.length>0){
 	else if(this.intersects[0].point.y<-7){
       this.functionObject('Neck');
       this.emitter.next(this.dataObj);
-			
+
 	}
     else{
       this.intersects[0].face.color.setRGB(0, 255, 0);

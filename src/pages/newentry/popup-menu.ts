@@ -3,7 +3,9 @@ import {ViewController} from 'ionic-angular';
 
 import {LocalStorageService} from "../../services/LocalStorageService";
 import {returnPointService} from "../../services/returnPointService";
-/*import {EmitterService} from "../../services/EmitterService";*/
+import { Storage } from '@ionic/storage';
+import {SQLiteService} from "../../services/SQLiteService";
+
 /*
  Generated class for the Newentry page.
 
@@ -23,7 +25,7 @@ export class PopoverComponent  {
   public fileName:string;
   public switchLevel=true;
   @ViewChild('inputFile') inputFile: any;
-  constructor(public viewCtrl: ViewController, public LocalStorageService:LocalStorageService, private _returnPointService: returnPointService /*private emitter:EmitterService*/) {
+  constructor(public viewCtrl: ViewController, public LocalStorageService:LocalStorageService, private _returnPointService: returnPointService,storage: Storage, public SQLiteService:SQLiteService /*private emitter:EmitterService*/) {
     this.bodyPart=viewCtrl.data.bodyPart;
 
   }
@@ -70,7 +72,10 @@ export class PopoverComponent  {
     this._returnPointService.getPoint(textObj);
     /**/
     this.LocalStorageService.save(textObj,'lastActive');
-    this.LocalStorageService.saveIntoLocalStorage(textObj,'history');
+    this.LocalStorageService.saveIntoLocalStorage(textObj,bp.name);
+
+    this.SQLiteService.insertIntoMainDB(textObj);
+
     this.close();
     /**/
     /*console.log(this.date._d);

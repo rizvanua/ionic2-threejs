@@ -22,6 +22,9 @@ import {EmitterService} from "../services/EmitterService";
 import {LocalStorageService} from "../services/LocalStorageService";
 import {returnPointService} from "../services/returnPointService";
 import { Storage } from '@ionic/storage';
+import { SQLite } from 'ionic-native';
+import {SQLiteService} from "../services/SQLiteService";
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -46,7 +49,8 @@ import { Storage } from '@ionic/storage';
   imports: [
     IonicModule.forRoot(MyApp),
     BrowserModule,
-    MomentModule
+    MomentModule,
+    FormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -67,6 +71,6 @@ import { Storage } from '@ionic/storage';
     CanvasComponent,
     PopoverComponent
   ],
-  providers: [EmitterService,LocalStorageService,returnPointService,Storage]
+  providers: [EmitterService,LocalStorageService,returnPointService,Storage,SQLite,SQLiteService]
 })
 export class AppModule {}

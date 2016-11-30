@@ -7,6 +7,7 @@ import { StatusBar } from 'ionic-native';
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ListPage } from '../pages/list/list';
 import { SiginComponent } from '../pages/sigin/sigin';
+import {SQLiteService} from "../services/SQLiteService";
 
 
 @Component({
@@ -21,7 +22,8 @@ export class MyApp {
 
   constructor(
     public platform: Platform,
-    public menu: MenuController
+    public menu: MenuController,
+    public SQLiteService:SQLiteService
   ) {
     this.initializeApp();
 
@@ -37,7 +39,10 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+      this.SQLiteService.createAuthDB();
+      this.SQLiteService.createMainDB();
       StatusBar.styleDefault();
+
     });
   }
 

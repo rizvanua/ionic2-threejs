@@ -3,6 +3,8 @@ import { NavController } from 'ionic-angular';
 import { RegistrationPage } from '../registration/registration';
 import { RecoverpassPage } from '../recoverpass/recoverpass';
 import {FirsttimePage} from '../firsttime/firsttime';
+import {SQLiteService} from "../../services/SQLiteService";
+
 @Component({
   selector: 'sigin',
   templateUrl: 'sigin.html'
@@ -10,10 +12,19 @@ import {FirsttimePage} from '../firsttime/firsttime';
 export class SiginComponent {
   text: string;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public SQLiteService:SQLiteService) {
     console.log('Hello Sigin Component');
-    this.text = 'Hello World';
+
   }
+
+  ionViewDidLoad() {
+    this.SQLiteService.getFromAuthDB();
+    /*this.SQLiteService.dropTable();*/
+    this.SQLiteService.showAllTables2();
+    this.SQLiteService.showAllTables3();
+
+  }
+
   openRecoverpassPage() {
 
     // navigate to the new page if it is not the current page

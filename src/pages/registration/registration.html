@@ -15,35 +15,36 @@
 
 <ion-content padding>
   <ion-grid class="ro-out-marging">
-    <form>
+    <form (ngSubmit)="onSubmitReg(f)" #f="ngForm">
       <ion-item>
-        <ion-input type="text" placeholder="First Name"></ion-input>
+        <ion-input type="text" placeholder="First Name" ngModel name="firstName"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="text" placeholder="Last Name"></ion-input>
+        <ion-input type="text" placeholder="Last Name" ngModel name="lastName"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="email" placeholder="Email"></ion-input>
+        <ion-input type="email" placeholder="Email" ngModel name="email"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="password" placeholder="Password"></ion-input>
+        <ion-input type="password" placeholder="Password" ngModel name="password"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="password" placeholder="Confirm your Password"></ion-input>
+        <ion-input type="password" placeholder="Confirm your Password" ngModel name="confPassword"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Gender</ion-label>
-        <ion-select>
+        <ion-label  for="gender">Gender</ion-label>
+        <ion-select ngModel name="gender">
           <ion-option value="f">Female</ion-option>
           <ion-option value="m">Male</ion-option>
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-input type="number" placeholder="Age"></ion-input>
+        <ion-input type="number" placeholder="Age" ngModel name="age"></ion-input>
       </ion-item>
-<div>{{Name}}</div>
+
       <button class="ro-margin-top" ion-button type="submit" full>Register</button>
 
     </form>
+    <div>{{Name}}</div>
   </ion-grid>
 </ion-content>
