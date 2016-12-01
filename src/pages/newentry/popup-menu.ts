@@ -73,7 +73,9 @@ export class PopoverComponent  {
     /**/
     this.LocalStorageService.save(textObj,'lastActive');
     this.LocalStorageService.save(textObj,bp.name);
-
+    /*Need Remove this when implement SQLiteService*/
+    this.LocalStorageService.saveIntoLocalStorage(textObj,'history');
+    /**/
     this.SQLiteService.insertIntoMainDB(textObj);
 
     this.close();

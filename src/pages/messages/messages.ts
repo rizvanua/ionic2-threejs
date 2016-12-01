@@ -16,9 +16,9 @@ export class MessagesPage {
 
   constructor(public navCtrl: NavController) {
     this.messages=[
-      {name: 'Marty McFly', nick: '@Marty', img: 'assets/picture/marty-avatar.png', day: '2d',text:'Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine...' },
-      {name: 'Sarah Connor', nick: '@SConnor', img: 'assets/picture/sarah-avatar.png.jpeg', day: '2d',text:'I face the unknown future, with a sense of hope. Because if a machine, a Terminator, can learn the value of human life, maybe we can too.'},
-      {name: 'Dr. Ian Malcolm', nick: '@DrMalcolm', img: 'assets/picture/ian-avatar.png', day: '2d',text:'Your scientists were so preoccupied with whether or not they could, that they did not stop to think if they should.'}
+      {name: 'Marty McFly', nick: '@Marty', img: 'assets/img/marty_avatar.jpg', day: '2d',text:'Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine...' },
+      {name: 'Sarah Connor', nick: '@SConnor', img: 'assets/img/sarah_avatar.jpg', day: '2d',text:'I face the unknown future, with a sense of hope. Because if a machine, a Terminator, can learn the value of human life, maybe we can too.'},
+      {name: 'Dr. Ian Malcolm', nick: '@DrMalcolm', img: 'assets/img/ian_avatar.jpg', day: '2d',text:'Your scientists were so preoccupied with whether or not they could, that they did not stop to think if they should.'}
     ]
   }
 

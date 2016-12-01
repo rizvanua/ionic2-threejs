@@ -25,6 +25,7 @@ import { Storage } from '@ionic/storage';
 import { SQLite } from 'ionic-native';
 import {SQLiteService} from "../services/SQLiteService";
 import {FormsModule} from "@angular/forms";
+import {PassClickService} from "../services/PassClickService";
 
 
 @NgModule({
@@ -71,6 +72,6 @@ import {FormsModule} from "@angular/forms";
     CanvasComponent,
     PopoverComponent
   ],
-  providers: [EmitterService,LocalStorageService,returnPointService,Storage,SQLite,SQLiteService]
+  providers: [EmitterService,LocalStorageService,returnPointService,Storage,SQLite,SQLiteService,PassClickService]
 })
 export class AppModule {}

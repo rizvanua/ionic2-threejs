@@ -5,6 +5,7 @@ import {EmitterService} from "../../services/EmitterService";//Initialization of
 import {Subscription} from 'rxjs/Subscription';
 import {returnPointService} from "../../services/returnPointService";
 import {LocalStorageService} from "../../services/LocalStorageService";
+import {PassClickService} from "../../services/PassClickService";
 /*
  Generated class for the Newentry page.
 
@@ -32,6 +33,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   private drectionalLight1: THREE.DirectionalLight;
   private drectionalLight2: THREE.DirectionalLight;
   private aspectRatio:number;
+  private animation:any;
 
   /*user interaction properties*/
   private arr=['Ear Right', 'Ear Left', 'Forehead', 'Top of skull', 'Lips', 'Nose', 'Right Eye', 'Left Eye', 'Chin', 'Right Cheek', 'Left Cheek', 'Neck', 'Left Shoulder', 'Right Shoulder', 'Back', 'Chest', 'Back of the head', 'Temple'];
@@ -66,7 +68,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.checkBodyPart(event);
   }
 
-  constructor(public LocalStorageService:LocalStorageService, private _returnPointService:returnPointService, private emitter:EmitterService) {
+  constructor(public LocalStorageService:LocalStorageService, private _returnPointService:returnPointService, private emitter:EmitterService, private PassClickService:PassClickService) {
+    /*Get data from popup-menu.ts with Object with information about choose level*/
     this.subscription = this._returnPointService.pointItem$.subscribe(
       item => {this.itemData = item;
         this.itemPoint=item.point;
@@ -74,7 +77,12 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.itemLevel=item.level;
         this.itemName=item.name;
         this.markLastPoint(this.itemFace,this.itemPoint,this.itemLevel,this.itemName);
-        })
+        });
+    /*Get data from parent component with information about click*/
+    this.subscription=this.PassClickService.subscribe((msg) => {
+      /*console.log(msg);*/
+      this.clearPointersFunction();
+    });
   }
   ngOnInit(){
     /*Prepere objects for PointerMarkers*/
@@ -84,6 +92,17 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       Object.defineProperty(this.mouseHelper, this.arr[i],{value:{}, configurable: true, writable: true, enumerable: true });
       Object.defineProperty(this.mouseHelperMaterial, this.arr[i],{value:{}, configurable: true, writable: true, enumerable: true });
     }
+  }
+  clearPointersFunction(){
+    for(let i=0; i<this.arr.length; i++){
+      let prop=this.arr[i];
+      this.mouseHelper[prop].visible = false;
+      this.line[prop].visible = false;
+      if(window.localStorage.getItem(prop) != null&&window.localStorage[prop].length>0){
+        window.localStorage.removeItem(prop);
+      }
+    }
+
   }
     ionViewDidLoad() {
     this.renderer.render(this.scene, this.camera);
@@ -173,7 +192,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     let component: CanvasComponent = this;
     this.CameraRotation();
     (function render() {
-        requestAnimationFrame(render);
+      component.animation=requestAnimationFrame(render);
+      console.log(1);
       component.renderer.render(component.scene, component.camera);
     }());
 
@@ -266,7 +286,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
      this.line[itemName].geometry.vertices[ 0 ].copy( intersection.point );
      this.line[itemName].geometry.vertices[ 1 ].copy( n );
      this.line[itemName].geometry.verticesNeedUpdate = true;
-
+     this.line[itemName].visible = true;
      intersection.intersects = true;
    /*}*/
   }
@@ -467,6 +487,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   ngOnDestroy() {
     // prevent memory leak when component is destroyed
     this.subscription.unsubscribe();
+    cancelAnimationFrame(this.animation);
   }
 
   /*Calculating angle for MousePositionEvent*/

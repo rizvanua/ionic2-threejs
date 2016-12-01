@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {MenupagePage} from "../menupage/menupage";
-import * as YouTubePlayer from 'youtube-player';
+/*import * as YouTubePlayer from 'youtube-player';*/
 
 /*
   Generated class for the Firsttime page.
@@ -20,12 +20,12 @@ public player:any
 
   ionViewDidLoad() {
     console.log('Hello FirsttimePage Page');
-    this.player = YouTubePlayer('video-player2');
+    /*this.player = YouTubePlayer('video-player2');
     this.player.loadVideoById('sWk-kiOtBeY');
-    this.player.playVideo();
+    this.player.playVideo();*/
   }
   openMenupagePage(){
-    this.player.stopVideo();
+    /*this.player.stopVideo();*/
     this.navCtrl.push(MenupagePage);
   }
 

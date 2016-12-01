@@ -149,6 +149,10 @@ ion-backdrop{
     height: 60px;
 	border-radius: 50%;
 	/*border: none;*/
+    &#showLevel{background: url(../assets/icon/round_menu_icons.jpg) -122px 0 no-repeat}
+    &#getCamera{background: url(../assets/icon/round_menu_icons.jpg) -61px 0 no-repeat}
+    &#openFile{background: url(../assets/icon/round_menu_icons.jpg) 0 0 no-repeat}
+    &#closeMenu{background: url(../assets/icon/round_menu_icons.jpg) -181px -1px no-repeat}
 	.item-inner {
     border: none;
 }
@@ -196,6 +200,17 @@ display:none;
     width: 200px;
     background: white;
     bottom: 0;
+}
+
+button#clearDataClick {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  top: 2px;
+  right: 20px;
+  border-radius: 50%;
+  background: url(../assets/icon/round_menu_icons.jpg) -246px -3px no-repeat;
+  z-index: 10;
 }
 
 

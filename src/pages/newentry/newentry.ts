@@ -4,6 +4,7 @@ import { PopoverController } from 'ionic-angular';
 import {EmitterService} from "../../services/EmitterService";//Initialization of emitter to get data from child component (see CanvasComponent)
 import { Subscription }   from 'rxjs/Subscription';
 import {PopoverComponent} from "./popup-menu";
+import {PassClickService} from "../../services/PassClickService";
 /*
   Generated class for the Newentry page.
 
@@ -20,13 +21,16 @@ export class NewentryPage implements OnDestroy{
   bodyPart:string;
   private subscription: Subscription;
 
-  constructor(public navCtrl: NavController,public popoverCtrl: PopoverController,private emitter:EmitterService) {
+  constructor(public navCtrl: NavController,public popoverCtrl: PopoverController,private emitter:EmitterService, public PassClickService:PassClickService) {
     //Here we get data from child component Canvas
     this.subscription=this.emitter.subscribe((msg) => {
       /*console.log(msg);*/
       this.presentPopover(msg);//and pass to child component popup-menu
     });
 
+  }
+  clearDataPointers(){
+    this.PassClickService.next('Click')
   }
 
   ionViewDidLoad() {
