@@ -14,7 +14,7 @@ export class HelloIonicPage {
 
   }
   ionViewDidLoad() {
-    console.log('Hello NewentryPage Page');
+    console.log('Hello NewentryPage  Page');
 
   }
   ngAfterContentInit() {
