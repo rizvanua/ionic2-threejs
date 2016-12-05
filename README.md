@@ -29,7 +29,7 @@ $ npm install -g cordova@6.4.0 or npm install -g cordova@latest
 Then
 Install crosswalk and QLStorage
 ```bash
-$ ionic plugin add cordova-plugin-crosswalk-webview --save
+$ cordova plugin add cordova-plugin-crosswalk-webview@2.2.0 --save
 ```
 	then
 ```bash	
