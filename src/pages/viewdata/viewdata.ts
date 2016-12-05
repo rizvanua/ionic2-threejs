@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import {ChartPiePage} from "./chartPie";
 
-import {LocalStorageService} from "../../services/LocalStorageService";
-import {SQLiteService} from "../../services/SQLiteService";
 /*
   Generated class for the Viewdata page.
 
@@ -14,23 +13,26 @@ import {SQLiteService} from "../../services/SQLiteService";
   templateUrl: 'viewdata.html'
 })
 export class ViewdataPage {
-public data:any;
+  charts: Array<{title: string, component: any, icon: string}>;
 
-  constructor(public navCtrl: NavController,public LocalStorageService:LocalStorageService, public SQLiteService:SQLiteService) {}
+  constructor(public navCtrl: NavController) {
+    this.charts = [
+      { title: 'New entry', component: ChartPiePage, icon: 'body'},
+    ];
+  }
 
 
   ionViewDidLoad() {
     console.log('Hello ViewdataPage Page');
-    /*here we use SQLite*/
-    this.SQLiteService.getFromMainDB();
-    /**/
 
-    /*here we use local host*/
-	if(window.localStorage.length>0){
-	this.data=this.LocalStorageService.get('history');
-	console.log(this.data);
-	}
-	/**/
   }
+
+  openPage(page) {
+    // close the menu when clicking a link from the menu
+    // navigate to the new page if it is not the current page
+    this.navCtrl.push(page.component);
+  }
+
+
 
 }

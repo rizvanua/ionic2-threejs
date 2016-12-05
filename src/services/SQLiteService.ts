@@ -58,7 +58,7 @@ export class SQLiteService{
 
   insertIntoMainDB(textObj){
     this.openDatabase().then(() => {
-      this.db.executeSql('INSERT INTO historyData (level, name, point, face,  time ) VALUES ( ?, ?, ?, ?, ? )', [textObj.level, textObj.name, textObj.point, textObj.face, textObj.time]).then((data) => {
+      this.db.executeSql('INSERT INTO historyData (level, name, point, face,  time ) VALUES ( ?, ?, ?, ?, datetime("now", "localtime") )', [textObj.level, textObj.name, textObj.point, textObj.face]).then((data) => {
         console.log("there are: "+ data);
       }, (err) => {
         console.error('Unable to execute sql: ', err);
@@ -105,6 +105,13 @@ export class SQLiteService{
     });
 
   }
+
+
+  getForPieChart(period){
+   return this.db.executeSql('SELECT COUNT(*) AS count, name FROM historyData WHERE time BETWEEN datetime("now", "localtime", ?) AND datetime("now", "localtime") GROUP BY name',[period]);
+  }
+
+
 
   dropTable(){
     this.openDatabase().then(() => {

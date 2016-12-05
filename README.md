@@ -17,7 +17,7 @@ $ npm install
 Then run:
 
 ```bash
-$ ionic server 
+$ ionic serve
 ```
 
 To build app you need Cordova 

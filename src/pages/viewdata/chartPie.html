@@ -1,0 +1,25 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>View data</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col width-20 (click)="getDataBase('start of day')">Daily</ion-col>
+      <ion-col width-20 (click)="getDataBase('-6 days')">Weekly</ion-col>
+      <ion-col width-20 (click)="getDataBase('start of month')">Monthly</ion-col>
+      <ion-col width-20 (click)="getDataBase('start of year')">Yearly</ion-col>
+      <ion-col width-20 (click)="RangeChart()">Range</ion-col>
+    </ion-row>
+  </ion-grid>
+  <canvas baseChart
+          [data]="pieChartData"
+          [labels]="pieChartLabels"
+          [chartType]="pieChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+</ion-content>

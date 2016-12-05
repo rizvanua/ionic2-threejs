@@ -22,10 +22,12 @@ import {EmitterService} from "../services/EmitterService";
 import {LocalStorageService} from "../services/LocalStorageService";
 import {returnPointService} from "../services/returnPointService";
 import { Storage } from '@ionic/storage';
-import { SQLite } from 'ionic-native';
+import {SQLite, Camera} from 'ionic-native';
 import {SQLiteService} from "../services/SQLiteService";
 import {FormsModule} from "@angular/forms";
 import {PassClickService} from "../services/PassClickService";
+import {ChartsModule} from "ng2-charts";
+import {ChartPiePage} from "../pages/viewdata/chartPie";
 
 
 @NgModule({
@@ -45,13 +47,15 @@ import {PassClickService} from "../services/PassClickService";
     ViewdataPage,
     ProfilePage,
     CanvasComponent,
-    PopoverComponent
+    PopoverComponent,
+    ChartPiePage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
     BrowserModule,
     MomentModule,
-    FormsModule
+    FormsModule,
+    ChartsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -70,8 +74,9 @@ import {PassClickService} from "../services/PassClickService";
     ViewdataPage,
     ProfilePage,
     CanvasComponent,
-    PopoverComponent
+    PopoverComponent,
+    ChartPiePage
   ],
-  providers: [EmitterService,LocalStorageService,returnPointService,Storage,SQLite,SQLiteService,PassClickService]
+  providers: [EmitterService,LocalStorageService,returnPointService,Storage,SQLite,SQLiteService,PassClickService,Camera]
 })
 export class AppModule {}

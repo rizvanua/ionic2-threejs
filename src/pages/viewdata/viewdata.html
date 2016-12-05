@@ -14,5 +14,12 @@
 
 
 <ion-content padding>
-<div *ngFor="let d of data">Level: {{d.level}}, Body part: {{d.name}}</div>
+  <ion-grid class="ro-out-marging">
+    <ion-list>
+      <button class='ro-button'  [ngClass]="{'ro-margin-top':i!==0}" ion-button full color="light"  *ngFor="let chart of charts; let i = index" (click)="openPage(chart)">
+        <ion-icon class="ro-icon-button" [name]="chart.icon"></ion-icon>
+        {{chart.title}}
+      </button>
+    </ion-list>
+  </ion-grid>
 </ion-content>

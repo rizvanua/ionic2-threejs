@@ -5,6 +5,7 @@ import {LocalStorageService} from "../../services/LocalStorageService";
 import {returnPointService} from "../../services/returnPointService";
 import { Storage } from '@ionic/storage';
 import {SQLiteService} from "../../services/SQLiteService";
+import {Camera} from "ionic-native";
 
 /*
  Generated class for the Newentry page.
@@ -24,8 +25,11 @@ export class PopoverComponent  {
   public gotFile=false;
   public fileName:string;
   public switchLevel=true;
+  /*Camera*/
+  public base64Image: string;
+
   @ViewChild('inputFile') inputFile: any;
-  constructor(public viewCtrl: ViewController, public LocalStorageService:LocalStorageService, private _returnPointService: returnPointService,storage: Storage, public SQLiteService:SQLiteService /*private emitter:EmitterService*/) {
+  constructor(public viewCtrl: ViewController, public LocalStorageService:LocalStorageService, private _returnPointService: returnPointService,storage: Storage, public SQLiteService:SQLiteService, /*private emitter:EmitterService*/) {
     this.bodyPart=viewCtrl.data.bodyPart;
 
   }
@@ -44,7 +48,16 @@ export class PopoverComponent  {
   }
 
   public getCamera(){
-
+    Camera.getPicture({
+      destinationType: Camera.DestinationType.DATA_URL,
+      targetWidth: 1000,
+      targetHeight: 1000
+    }).then((imageData) => {
+      // imageData is a base64 encoded string
+      this.base64Image = "data:image/jpeg;base64," + imageData;
+    }, (err) => {
+      console.log(err);
+    });
   }
 
    ionViewDidLoad() {
