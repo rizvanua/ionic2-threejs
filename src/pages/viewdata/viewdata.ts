@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {ChartPiePage} from "./chartPie";
+import {lineChartPage} from "./chartLine";
 
 /*
   Generated class for the Viewdata page.
@@ -17,7 +18,8 @@ export class ViewdataPage {
 
   constructor(public navCtrl: NavController) {
     this.charts = [
-      { title: 'New entry', component: ChartPiePage, icon: 'body'},
+      { title: 'Pie Chart', component: ChartPiePage, icon: 'body'},
+      { title: 'Line Chart', component: lineChartPage, icon: 'analytics'}
     ];
   }
 

@@ -28,6 +28,7 @@ import {FormsModule} from "@angular/forms";
 import {PassClickService} from "../services/PassClickService";
 import {ChartsModule} from "ng2-charts";
 import {ChartPiePage} from "../pages/viewdata/chartPie";
+import {lineChartPage} from "../pages/viewdata/chartLine";
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import {ChartPiePage} from "../pages/viewdata/chartPie";
     ProfilePage,
     CanvasComponent,
     PopoverComponent,
-    ChartPiePage
+    ChartPiePage,
+    lineChartPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -75,7 +77,8 @@ import {ChartPiePage} from "../pages/viewdata/chartPie";
     ProfilePage,
     CanvasComponent,
     PopoverComponent,
-    ChartPiePage
+    ChartPiePage,
+    lineChartPage
   ],
   providers: [EmitterService,LocalStorageService,returnPointService,Storage,SQLite,SQLiteService,PassClickService,Camera]
 })

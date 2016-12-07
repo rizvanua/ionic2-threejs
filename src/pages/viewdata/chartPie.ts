@@ -32,7 +32,28 @@ export class ChartPiePage {
   }
 
   getDataBase(period){
-    this.SQLiteService.getForPieChart('start of day').then((data) => {
+    this.SQLiteService.getForPieChart(period).then((data) => {
+      let DataObj={
+        countArr:[],
+        unicName:[]
+      };
+
+      if(data.rows.length > 0) {
+        for(var i = 0; i < data.rows.length; i++) {
+          console.log(JSON.stringify(data.rows.item(i)));
+
+          DataObj.countArr.push(data.rows.item(i).count);
+          DataObj.unicName.push(data.rows.item(i).name);
+        }
+      }
+      this.pieChartLabels=DataObj.unicName;
+      this.pieChartData=DataObj.countArr;
+    });
+
+  }
+
+  getDataBaseWeekly(period){
+    this.SQLiteService.getForPieChartWeekly(period).then((data) => {
       let DataObj={
         countArr:[],
         unicName:[]

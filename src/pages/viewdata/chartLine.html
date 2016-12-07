@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>View data</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col width-20 (click)="getDayly()">Daily</ion-col>
+      <ion-col width-20 (click)="getWeekly()">Weekly</ion-col>
+      <ion-col width-20 (click)="getMonthly()">Monthly</ion-col>
+      <ion-col width-20 (click)="getYearly()">Yearly</ion-col>
+      <ion-col width-20 (click)="RangeChart()">Range</ion-col>
+    </ion-row>
+  </ion-grid>
+  <canvas baseChart width="400" height="400"
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+</ion-content>
+

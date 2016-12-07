@@ -111,6 +111,30 @@ export class SQLiteService{
    return this.db.executeSql('SELECT COUNT(*) AS count, name FROM historyData WHERE time BETWEEN datetime("now", "localtime", ?) AND datetime("now", "localtime") GROUP BY name',[period]);
   }
 
+  getForPieChartWeekly(period){
+    return this.db.executeSql('SELECT COUNT(*) AS count, name FROM historyData WHERE DATE(time) >= DATE("now", "weekday 0", ?) GROUP BY name',[period]);
+  }
+
+  getForLineChart(period){
+    return this.db.executeSql('SELECT * FROM historyData WHERE time BETWEEN datetime("now", "localtime", ?) AND datetime("now", "localtime")',[period]);
+  }
+  getForLineChartDay(period){
+    return this.db.executeSql('SELECT COUNT(*) AS count, cast ( strftime ("%H", time) as integer) as hoursofday FROM historyData WHERE time BETWEEN datetime("now", "localtime", ?) AND datetime("now", "localtime") GROUP BY hoursofday',[period]);
+  }
+
+  getForLineChartWeek(period){
+    return this.db.executeSql('SELECT COUNT(*) AS count, case cast ( strftime ("%w", time) as integer ) when 0 then "Sunday"  when 1 then "Monday"  when 2 then "Tuesday" when 3 then "Wednesday" when 4 then "Thursday"  when 5 then "Friday" else "Saturday" end as dayofweek FROM historyData WHERE DATE(time) >= DATE("now", "weekday 0", ?) GROUP BY dayofweek',[period]);
+  }
+
+  getForLineChartMonth(period){
+    return this.db.executeSql('SELECT COUNT(*) AS count, cast ( strftime ("%d", time) as integer) as daysofmonth FROM historyData WHERE time BETWEEN datetime("now", "localtime", ?) AND datetime("now", "localtime") GROUP BY daysofmonth',[period]);
+  }
+
+  getForLineChartYear(period){
+    return this.db.executeSql('SELECT COUNT(*) AS count, case strftime("%m", time) when "01" then "January" when "02" then "Febuary" when "03" then "March" when "04" then "April" when "05" then "May" when "06" then "June" when "07" then "Jul" when "08" then "August" when "09" then "September" when "10" then "October" when "11" then "November" when "12" then "December" else "" end as monthofyear FROM historyData WHERE time BETWEEN datetime("now", "localtime", ?) AND datetime("now", "localtime") GROUP BY monthofyear',[period]);
+  }
+
+
 
 
   dropTable(){

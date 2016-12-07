@@ -87,7 +87,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   ngOnInit(){
     /*Prepere Objects for PointerMarkers*/
     for(let i=0; i<this.arr.length; i++){
-      console.log('ngOnInit');
       Object.defineProperty(this.line, this.arr[i],{value:{}, configurable: true, writable: true, enumerable: true });
       Object.defineProperty(this.mouseHelper, this.arr[i],{value:{}, configurable: true, writable: true, enumerable: true });
       Object.defineProperty(this.mouseHelperMaterial, this.arr[i],{value:{}, configurable: true, writable: true, enumerable: true });

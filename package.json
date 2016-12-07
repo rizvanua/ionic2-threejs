@@ -36,6 +36,7 @@
     "three": "^0.82.1",
     "three-orbit-controls": "^72.0.0",
     "three-orbitcontrols": "^1.1.2",
+    "underscore": "^1.8.3",
     "youtube-player": "^4.0.1",
     "zone.js": "0.6.21"
   },
