@@ -13,7 +13,7 @@
       <ion-col width-20 (click)="getDataBaseWeekly('-7 days')">Weekly</ion-col>
       <ion-col width-20 (click)="getDataBase('start of month')">Monthly</ion-col>
       <ion-col width-20 (click)="getDataBase('start of year')">Yearly</ion-col>
-      <ion-col width-20 (click)="RangeChart()">Range</ion-col>
+      <ion-col width-20 (click)="isClassVisible = !isClassVisible;">Range</ion-col>
     </ion-row>
   </ion-grid>
   <canvas baseChart
@@ -23,3 +23,20 @@
           (chartHover)="chartHovered($event)"
           (chartClick)="chartClicked($event)"></canvas>
 </ion-content>
+
+<ion-grid class="range" [ngClass]="{'my-class': isClassVisible }">
+  <ion-row>
+    <ion-col width-100 >
+      <form (ngSubmit)="RangeChart(f)" #f="ngForm">
+        <ion-item>
+          <ion-input type="date" id="lineChartFromDate" ngModel name="lineChartFromDate"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="date" id="lineChartToDate" ngModel name="lineChartToDate"></ion-input>
+        </ion-item>
+        <button ion-button type="submit" block>OK</button>
+        <button ion-button type="button" (click)="closeWindow()" block>Cancel</button>
+      </form>
+    </ion-col>
+  </ion-row>
+</ion-grid>
