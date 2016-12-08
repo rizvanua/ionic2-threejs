@@ -158,6 +158,7 @@ export class lineChartPage implements OnInit {
   }
 /*fetch data for Day*/
   getDayly(){
+    console.log('Day');
     let DaylineChartLabels=this._.range(24).map(num => ('0' + num).slice(-2));
     this.SQLiteService.getForLineChartDay('start of day').then((data) => {
       this.InnerCycleFunction(this.DayDataObj,'hoursofday',data);
@@ -172,6 +173,7 @@ export class lineChartPage implements OnInit {
   }
 /*fetch data for Week*/
   getWeekly(){
+    console.log('Week');
       this.SQLiteService.getForLineChartWeek('-7 days').then((data) => {
         this.InnerCycleFunction(this.WeekDataObj,'dayofweek',data);
         for (let arr=0; arr<4; arr++){

@@ -10,11 +10,28 @@
   <ion-content padding>
   <ion-grid>
     <ion-row>
-      <ion-col width-20 (click)="getDayly()">Daily</ion-col>
-      <ion-col width-20 (click)="getWeekly()">Weekly</ion-col>
-      <ion-col width-20 (click)="getMonthly()">Monthly</ion-col>
-      <ion-col width-20 (click)="getYearly()">Yearly</ion-col>
-      <ion-col width-20 (click)="isClassVisible = !isClassVisible;">Range</ion-col>
+      <ion-list class="gsa-radio-block" radio-group>
+      <div class="gsa-icon-period">
+          <ion-radio checked="true" (click)="getDayly()"></ion-radio>
+          <ion-label>Daily</ion-label>
+      </div>
+      <div class="gsa-icon-period">
+        <ion-radio  (click)="getWeekly()"></ion-radio>
+        <ion-label>Weekly</ion-label>
+      </div>
+      <div class="gsa-icon-period">
+        <ion-radio (click)="getMonthly()"></ion-radio>
+        <ion-label>Monthly</ion-label>
+      </div>
+      <div class="gsa-icon-period">
+        <ion-radio (click)="getYearly()"></ion-radio>
+        <ion-label>Yearly</ion-label>
+      </div>
+      <div class="gsa-icon-period gsa-range">
+        <ion-radio (click)="isClassVisible = !isClassVisible;"></ion-radio>
+        <ion-label>Range</ion-label>
+      </div>
+      </ion-list>
     </ion-row>
   </ion-grid>
   <div>
@@ -40,7 +57,7 @@
         <ion-item>
           <ion-input type="date" id="lineChartToDate" ngModel name="lineChartToDate"></ion-input>
         </ion-item>
-        <button ion-button type="submit" block>OK</button>
+        <button ion-button type="submit" color="secondary" block>OK</button>
         <button ion-button type="button" (click)="closeWindow()" block>Cancel</button>
       </form>
     </ion-col>
