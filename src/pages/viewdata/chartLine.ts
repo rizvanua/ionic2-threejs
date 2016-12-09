@@ -216,7 +216,7 @@ export class lineChartPage implements OnInit {
       alert('Period must be more then 1 day')
     }
     else if(diff>90){
-      alert('Period must be not more then 90 days')
+      alert('Period of time must be not more than 90 days')
     }
     else{
       this.isClassVisible = false;

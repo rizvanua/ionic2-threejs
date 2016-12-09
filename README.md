@@ -32,9 +32,24 @@ Install crosswalk and QLStorage
 $ cordova plugin add cordova-plugin-crosswalk-webview@2.2.0 --save
 ```
 	then
+	
 ```bash	
 $ cordova plugin add cordova-sqlite-storage --save
 ```
+
+  then 
+```bash  
+  $ ionic plugin add cordova-plugin-splashscreen
+```
+  
+also
+
+```bash
+  $ ionic platform add android
+```  
+  
+  
+  
 
 ## Check dependency
 Check Cordova

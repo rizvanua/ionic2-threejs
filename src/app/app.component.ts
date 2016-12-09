@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 
 import { Platform, MenuController, Nav } from 'ionic-angular';
 
-import { StatusBar } from 'ionic-native';
+import {StatusBar, Splashscreen} from 'ionic-native';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ListPage } from '../pages/list/list';
@@ -41,10 +41,20 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.SQLiteService.createAuthDB();
       this.SQLiteService.createMainDB();
+      this.hideSplashScreen();
       StatusBar.styleDefault();
 
     });
   }
+/*Delay for hiding splash screen*/
+  hideSplashScreen() {
+    if (Splashscreen) {
+      setTimeout(() => {
+        Splashscreen.hide();
+      }, 100);
+    }
+  }
+
 
   openPage(page) {
     // close the menu when clicking a link from the menu
