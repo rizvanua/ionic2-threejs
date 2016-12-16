@@ -222,7 +222,7 @@ export class lineChartPage implements OnInit {
       this.isClassVisible = false;
       let PrepareArray = daysBetween.toArray('days');
 
-      var diffDatesArray=[];
+      let diffDatesArray=[];
       for(let y=0; y<PrepareArray.length; y++){
 
         diffDatesArray.push(moment(PrepareArray[y]._d).format("YYYY-MM-DD"));

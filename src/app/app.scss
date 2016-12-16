@@ -15,11 +15,24 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+h3{
+  font-size: 3rem;
+  text-align: center;
+  color: white;
+}
+
 .ro-link{
-  margin: 30px 0!important;
+  /*margin: 30px 0!important;*/
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .ro-out-marging{
   margin: 20px 0;
+}
+.ro-button{
+  font-size: 1.8rem;
 }
 
 .ro-button-flex{
@@ -29,7 +42,7 @@
 .ro-icon-button {
   position: absolute;
   left: 10px;
-  font-size: 30px;
+  font-size: 48px;
   top: 2px;
 }
 
@@ -264,6 +277,25 @@ ion-list.gsa-radio-block.list-md{
   }
 }
 
+.button {
+  height: 50px;
+}
+
+#lbl-25 {
+  margin-left: 8px;
+}
+.wrap-gsa-person{
+  height: 150px;
+  margin: 0 50px 10px 50px;
+  .gsa-person{
+    height: inherit;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDEwMDAgMTAwMCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAwMCAxMDAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48Zz48cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNNzU2LjQsMjY2LjRjMCwxNDEuNi0xMTQuOCwyNTYuNC0yNTYuNCwyNTYuNGMtMTQxLjYsMC0yNTYuNC0xMTQuOC0yNTYuNC0yNTYuNFMzNTguNCwxMCw1MDAsMTBDNjQxLjcsMTAsNzU2LjQsMTI0LjgsNzU2LjQsMjY2LjR6Ii8+PHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTk1MS45LDk5MFY4MzguN2MwLDAsMjUuNi0yNDMuNy0yMTUuNC0yNDMuN2MwLDAtMjM2LjYsMTI1LjUtNDU5LjMsMGMwLDAtMjI5LjktNS0yMjkuOSwyNDMuN1Y5OTAiLz48L2c+PC9zdmc+) center no-repeat;
+    background-size: contain;
+  }
+
+}
+
+
 .gsa-icon-period.gsa-range{
   .radio-icon{
     width: 50px;
@@ -278,5 +310,66 @@ ion-list.gsa-radio-block.list-md{
 
 
 }
+
+.deepblue-theme {
+  .blue-pane{
+    background: -webkit-linear-gradient(90deg, #00c6ff 10%, #0072ff 90%);
+    background: -moz-linear-gradient(90deg, #00c6ff 10%, #0072ff 90%);
+    background: -ms-linear-gradient(90deg, #00c6ff 10%, #0072ff 90%);
+    background: -o-linear-gradient(90deg, #00c6ff 10%, #0072ff 90%);
+    background: linear-gradient(90deg, #00c6ff 10%, #0072ff 90%);
+  }
+  .wrap-gsa-footer {
+    /*height: calc(100% - 80%);*/
+    position: relative;
+    margin-left: -16px;
+    margin-right: -16px;
+    margin-bottom: -16px;
+    &.hello{
+      /*height: calc(100% - 60%);*/
+    }
+    .gsa-footer{
+      display: flex;
+      /*position: absolute;*/
+      justify-content: center;
+      width: 100%;
+      height: 50px;
+      bottom: 0;
+      border-top: 1px solid white;
+      a{
+        color: white;
+        font-size: 2rem;
+        font-weight: 500;
+      }
+    }
+  }
+  .toolbar-gsa {
+    border-top: 1px white solid;
+    font-size: 2rem;
+    font-weight: 500;
+    &.hello{
+      .toolbar-background-md{
+        background-color: #387ef5;
+      }
+    }
+    &.sign-in{
+      .toolbar-background-md{
+        background: none;
+      }
+    }
+    a{
+      color: white;
+      font-size: 2rem;
+      font-weight: 500;
+    }
+
+  }
+}
+.button-energized {
+  border-color: #e6b500;
+  background-color: #ffc900;
+}
+
+
 
 

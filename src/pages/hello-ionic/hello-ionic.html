@@ -1,23 +1,26 @@
-<ion-content padding>
+<ion-content class="blue-pane" padding>
 
-    <ion-grid>
-      <ion-row>
-        <div id="helloVideo">
-          <img src="assets/img/hello_video.gif">
-        </div>
-      </ion-row>
-      <ion-row>
+      <ion-grid>
+        <ion-row>
+          <div id="helloVideo">
+            <img src="assets/img/hello_video.gif">
+          </div>
+        </ion-row>
+        <ion-row>
 
-      </ion-row>
-      <h3>Welcome to this awesome app!</h3>
+        </ion-row>
+        <h3>Welcome to this awesome app!</h3>
 
-      <p>
-        This app is the best way of helping you get a functional of social service for short time.
-      </p>
-      <ion-row>
+        <p>
+          This app is the best way of helping you get a functional of social service for short time.
+        </p>
+            <button class="button-full" ion-button color="primary" (click)="openSiginPage()" full>Sign In</button>
+      </ion-grid>
 
-        <ion-col width-50><button ion-button color="primary" (click)="openRegistrationPage()" full>Sign Up</button></ion-col>
-          <ion-col width-50><button ion-button color="primary" (click)="openSiginPage()" full>Sign In</button></ion-col>
-      </ion-row>
-    </ion-grid>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar class="toolbar-gsa hello">
+    <p class="ro-link"><a (click)="openRegistrationPage()">Sign Up</a></p>
+  </ion-toolbar>
+</ion-footer>

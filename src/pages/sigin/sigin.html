@@ -7,8 +7,13 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content class="blue-pane" padding>
+
   <ion-grid class="ro-out-marging">
+    <div class="wrap-gsa-person">
+      <div class="gsa-person">
+      </div>
+    </div>
     <form>
       <ion-item>
         <ion-input type="text" placeholder="Log In"></ion-input>
@@ -16,10 +21,13 @@
       <ion-item>
         <ion-input type="password" placeholder="Password"></ion-input>
       </ion-item>
-        <button class="ro-margin-top" color="secondary" ion-button type="submit" full (click)="openAccesPage()">Log In</button>
+        <button class="ro-margin-top" ion-button type="submit" full (click)="openAccesPage()">Log In</button>
     </form>
-    <p class="ro-link"><a (click)="openRecoverpassPage()">Forgot password</a></p>
-    <button ion-button type="button" full (click)="openRegistrationPage()">Sign Up</button>
   </ion-grid>
-</ion-content>
 
+</ion-content>
+<ion-footer>
+  <ion-toolbar class="toolbar-gsa sign-in">
+    <p class="ro-link"><a (click)="openRecoverpassPage()">Forgot password?</a></p>
+  </ion-toolbar>
+</ion-footer>

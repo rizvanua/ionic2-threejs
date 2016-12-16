@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="blue-pane" padding>
   <ion-grid class="ro-out-marging">
     <form (ngSubmit)="onSubmitReg(f)" #f="ngForm">
       <ion-item>
@@ -32,7 +32,7 @@
         <ion-input type="password" placeholder="Confirm your Password" ngModel name="confPassword"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label  for="gender">Gender</ion-label>
+        <ion-label class="gsa-gender" for="gender">Gender</ion-label>
         <ion-select ngModel name="gender">
           <ion-option value="f">Female</ion-option>
           <ion-option value="m">Male</ion-option>
@@ -42,7 +42,7 @@
         <ion-input type="number" placeholder="Age" ngModel name="age"></ion-input>
       </ion-item>
 
-      <button class="ro-margin-top" ion-button type="submit" full>Register</button>
+      <button class="ro-margin-top button-energized" ion-button type="submit" full>Register</button>
 
     </form>
     <div>{{Name}}</div>
