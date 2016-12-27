@@ -1,9 +1,15 @@
-<ion-content class="blue-pane" padding>
+<ion-content class="blue-pane hello-ionic-page" padding>
 
       <ion-grid>
         <ion-row>
           <div id="helloVideo">
-            <img src="assets/img/hello_video.gif">
+            <div class="wrap-sound-button">
+            <button (click)="soundMute()" class="volume-button" [ngClass]="{'mute':!soundMuted}"></button>
+            </div>
+            <video id="video1" width="100%" autoplay #videoPlayer>
+              <source src="assets/video/frontmove.mp4" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
           </div>
         </ion-row>
         <ion-row>

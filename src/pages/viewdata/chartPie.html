@@ -33,12 +33,15 @@
       </ion-list>
     </ion-row>
   </ion-grid>
-  <canvas baseChart
+  <div class='chart-container'>
+  <canvas baseChart #pieChart
           [data]="pieChartData"
           [labels]="pieChartLabels"
           [chartType]="pieChartType"
+          [options]="pieOptions"
           (chartHover)="chartHovered($event)"
           (chartClick)="chartClicked($event)"></canvas>
+  </div>
 </ion-content>
 
 <ion-grid class="range" [ngClass]="{'my-class': isClassVisible }">

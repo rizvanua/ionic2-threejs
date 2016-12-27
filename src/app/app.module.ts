@@ -29,6 +29,7 @@ import {PassClickService} from "../services/PassClickService";
 import {ChartsModule} from "ng2-charts";
 import {ChartPiePage} from "../pages/viewdata/chartPie";
 import {lineChartPage} from "../pages/viewdata/chartLine";
+import {NgNameDirective} from "../directives/ngName";
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import {lineChartPage} from "../pages/viewdata/chartLine";
     CanvasComponent,
     PopoverComponent,
     ChartPiePage,
-    lineChartPage
+    lineChartPage,
+    NgNameDirective
   ],
   imports: [
     IonicModule.forRoot(MyApp),

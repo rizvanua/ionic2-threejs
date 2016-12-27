@@ -7,6 +7,7 @@ import { NavController } from 'ionic-angular';
 import {SQLiteService} from "../../services/SQLiteService";
 import 'chart.js/dist/Chart.bundle.min.js';
 import {NgForm} from "@angular/forms";
+import {ViewChild} from "@angular/core/src/metadata/di";
 /*
  Generated class for the Viewdata page.
 
@@ -18,20 +19,126 @@ import {NgForm} from "@angular/forms";
   templateUrl: 'chartPie.html'
 })
 export class ChartPiePage {
+  @ViewChild('pieChart') pieChart;
   public isClassVisible:boolean= false;
   public data:any;
+  public getDatasetMeta:any;
   public pieChartLabels:string[]= [];
   public pieChartData:number[]= [];
   public pieChartType:string='pie';
+  public pieOptions:any={
+    responsive: true,
+    maintainAspectRatio: false, //maintainAspectRatio has unpredictable in this version of chart.js, so we put it in fasle
+    events:[],//prohibit all events
+    tooltips:{
+      enabled:false,//prohibit all tooltips are raised with events
+      displayColors:false,
+      callbacks: {
+        label: function (tooltipItem, data) {
+          let index=tooltipItem.index;
+          data.datasets[0].data[index];
+          return `${data.datasets[0].data[index]}`;
+        }
+      }
+    },
+    animation:{
+      onComplete: function() {//function to show all tooltips at once a chart is loaded
+          let ctx = this.chart.ctx;
+        console.log(ctx);
+
+        ctx.font = '18px Arial';
+
+        ctx.textAlign = "top";
+
+        ctx.fillStyle = "#000000";
+
+
+
+        this.data.datasets.forEach((dataset, datasetIndex)=> {
+
+          let meta = this.getDatasetMeta(datasetIndex),
+
+            total = 0, //total values to compute fraction
+
+            labelxy = [],
+
+            offset = Math.PI / 2, //start sector from top
+
+            radius,
+
+            centerx,
+
+            centery,
+
+            lastend = 0; //prev arc's end line: starting with 0
+
+          for (let val of dataset.data) { total += val; }
+
+
+
+          meta.data.forEach((element, index)=> {
+
+            radius = 0.9 * element._model.outerRadius - element._model.innerRadius;
+
+            centerx = element._model.x;
+
+            centery = element._model.y;
+
+            let thispart = dataset.data[index],
+
+              arcsector = Math.PI * (2 * thispart / total);
+
+            if (element.hasValue() && dataset.data[index] > 0) {
+
+              labelxy.push(lastend + arcsector / 2 + Math.PI + offset);
+
+            }
+
+            else {
+              labelxy.push(-1);
+            }
+
+            lastend += arcsector;
+
+          });
+
+
+
+          let lradius = radius * 3 / 4;
+
+          for (let idx in labelxy) {
+
+            if (labelxy[idx] === -1) continue;
+
+            let langle = labelxy[idx],
+
+              dx = centerx + lradius * Math.cos(langle),
+
+              dy = centery + lradius * Math.sin(langle),
+
+              val:any = dataset.data[idx];
+
+            ctx.fillText(val, dx, dy);
+          }
+        });
+
+      }
+
+    }
+  };
 
   constructor(public navCtrl: NavController, public SQLiteService:SQLiteService) {}
 
 
   ionViewDidLoad() {
     this.getDataBase('start of day');
-
+    /*Test Only data. Remove from poduction version*/
+    this.pieChartLabels= ['Download Sales', 'In-Store Sales', 'Mail Sales'];
+    this.pieChartData= [300, 500, 100];
+    /**/
 
   }
+
 
   getDataBase(period){
     this.SQLiteService.getForPieChart(period).then((data) => {
