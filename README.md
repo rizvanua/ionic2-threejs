@@ -37,7 +37,14 @@ $ cordova plugin add cordova-plugin-crosswalk-webview@2.2.0 --save
 $ cordova plugin add cordova-sqlite-storage --save
 ```
 
-  then 
+then
+
+```bash	
+$ ionic plugin add cordova-plugin-camera --save
+```
+
+then 
+  
 ```bash  
   $ ionic plugin add cordova-plugin-splashscreen
 ```
