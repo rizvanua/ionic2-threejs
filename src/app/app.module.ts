@@ -22,7 +22,7 @@ import {EmitterService} from "../services/EmitterService";
 import {LocalStorageService} from "../services/LocalStorageService";
 import {returnPointService} from "../services/returnPointService";
 import { Storage } from '@ionic/storage';
-import {SQLite, Camera} from 'ionic-native';
+import {SQLite, Camera, FileChooser} from 'ionic-native';
 import {SQLiteService} from "../services/SQLiteService";
 import {FormsModule} from "@angular/forms";
 import {PassClickService} from "../services/PassClickService";
@@ -82,6 +82,6 @@ import {NgNameDirective} from "../directives/ngName";
     ChartPiePage,
     lineChartPage
   ],
-  providers: [EmitterService,LocalStorageService,returnPointService,Storage,SQLite,SQLiteService,PassClickService,Camera]
+  providers: [EmitterService,LocalStorageService,returnPointService,Storage,SQLite,SQLiteService,PassClickService,Camera,FileChooser]
 })
 export class AppModule {}

@@ -5,7 +5,7 @@ import {LocalStorageService} from "../../services/LocalStorageService";
 import {returnPointService} from "../../services/returnPointService";
 import { Storage } from '@ionic/storage';
 import {SQLiteService} from "../../services/SQLiteService";
-import {Camera} from "ionic-native";
+import {Camera,FileChooser} from "ionic-native";
 
 /*
  Generated class for the Newentry page.
@@ -28,14 +28,20 @@ export class PopoverComponent  {
   /*Camera*/
   public base64Image: string;
 
+
+
   @ViewChild('inputFile') inputFile: any;
   constructor(public viewCtrl: ViewController, public LocalStorageService:LocalStorageService, private _returnPointService: returnPointService,storage: Storage, public SQLiteService:SQLiteService, /*private emitter:EmitterService*/) {
     this.bodyPart=viewCtrl.data.bodyPart;
 
   }
   public OpenFile(){
-  this.inputFile.nativeElement.click();
-  console.log(this.inputFile.nativeElement.value);
+
+    FileChooser.open()
+      .then(uri => { console.log(uri)})
+      .catch(e => {console.log(e)});
+  /*this.inputFile.nativeElement.click();
+  console.log(this.inputFile.nativeElement.value);*/
   }
 
   public Test(){

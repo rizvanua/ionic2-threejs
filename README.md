@@ -54,7 +54,11 @@ also
 ```bash
   $ ionic platform add android
 ```  
-  
+
+and 
+```bash
+$ ionic plugin add http://github.com/don/cordova-filechooser.git
+```   
   
   
 
