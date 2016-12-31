@@ -115,9 +115,12 @@ export class SQLiteService{
     return this.db.executeSql('SELECT COUNT(*) AS count, name FROM historyData WHERE DATE(time) >= DATE("now", "weekday 0", ?) GROUP BY name',[period]);
   }
 
+
+
   getForPieChartRange(from,to){
     return this.db.executeSql('SELECT COUNT(*) AS count, name FROM historyData WHERE time BETWEEN ? AND ? GROUP BY name',[from,to]);
   }
+
 
   getForLineChart(period){
     return this.db.executeSql('SELECT * FROM historyData WHERE time BETWEEN datetime("now", "localtime", ?) AND datetime("now", "localtime")',[period]);
@@ -197,7 +200,34 @@ export class SQLiteService{
     })
   }
 
+  /*RowData for test*/
+  getForPieChartRowData(period){
+    return this.db.executeSql('SELECT * FROM historyData WHERE time BETWEEN datetime("now", "localtime", ?) AND datetime("now", "localtime")',[period]);
+  }
 
+
+  getForPieChartWeeklyRowData(period){
+    return this.db.executeSql('SELECT * FROM historyData WHERE DATE(time) >= DATE("now", "weekday 0", ?)',[period]);
+  }
+
+
+  getChartRangeRowData(from,to){
+    return this.db.executeSql('SELECT * FROM historyData WHERE time BETWEEN ? AND ? ',[from,to ]);
+  }
+
+  getForLineChartRangeRowData(from,to){
+    return this.db.executeSql('SELECT * FROM historyData WHERE time BETWEEN ? AND ?',[from,to ]);
+  }
+
+  getForLineChartRowData(period){
+    return this.db.executeSql('SELECT * FROM historyData WHERE time BETWEEN datetime("now", "localtime", ?) AND datetime("now", "localtime")',[period]);
+  }
+
+  getForLineChartWeekRowData(period){
+    return this.db.executeSql('SELECT * FROM historyData WHERE DATE(time) >= DATE("now", "weekday 0", ?)',[period]);
+  }
+
+  /**/
 
 
 

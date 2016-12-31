@@ -5,7 +5,7 @@ import {LocalStorageService} from "../../services/LocalStorageService";
 import {returnPointService} from "../../services/returnPointService";
 import { Storage } from '@ionic/storage';
 import {SQLiteService} from "../../services/SQLiteService";
-import {Camera,FileChooser} from "ionic-native";
+import {Camera} from "ionic-native";
 
 /*
  Generated class for the Newentry page.
@@ -36,10 +36,21 @@ export class PopoverComponent  {
 
   }
   public OpenFile(){
+    Camera.getPicture({
+      destinationType:0,
+      sourceType:2,
+      targetWidth: 1000,
+      targetHeight: 1000
+    }).then((imageData) => {
+      // imageData is a base64 encoded string
+      this.base64Image = "data:image/jpeg;base64," + imageData;
+    }, (err) => {
+      console.log(err);
+    });
 
-    FileChooser.open()
+    /*FileChooser.open()
       .then(uri => { console.log(uri)})
-      .catch(e => {console.log(e)});
+      .catch(e => {console.log(e)});*/
   /*this.inputFile.nativeElement.click();
   console.log(this.inputFile.nativeElement.value);*/
   }
@@ -55,7 +66,7 @@ export class PopoverComponent  {
 
   public getCamera(){
     Camera.getPicture({
-      destinationType: Camera.DestinationType.DATA_URL,
+      destinationType: 1,
       targetWidth: 1000,
       targetHeight: 1000
     }).then((imageData) => {
@@ -65,6 +76,20 @@ export class PopoverComponent  {
       console.log(err);
     });
   }
+
+  /*public getGallery(){
+    Camera.getPicture({
+      destinationType:0,
+      sourceType:0,
+      targetWidth: 1000,
+      targetHeight: 1000
+    }).then((imageData) => {
+      // imageData is a base64 encoded string
+      this.base64Image = "data:image/jpeg;base64," + imageData;
+    }, (err) => {
+      console.log(err);
+    });
+  }*/
 
    ionViewDidLoad() {
 

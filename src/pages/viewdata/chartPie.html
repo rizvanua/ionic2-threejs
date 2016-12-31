@@ -11,19 +11,19 @@
     <ion-row>
       <ion-list class="gsa-radio-block" radio-group>
         <div class="gsa-icon-period">
-          <ion-radio checked="true" (click)="getDataBase('start of day')"></ion-radio>
+          <ion-radio checked="true" (click)="getDataBase('start of day'); getDataBaseTest('start of day')"></ion-radio>
           <ion-label>Daily</ion-label>
         </div>
         <div class="gsa-icon-period">
-          <ion-radio  (click)="getDataBaseWeekly('-7 days')"></ion-radio>
+          <ion-radio  (click)="getDataBaseWeekly('-7 days');getDataBaseWeeklyTest('-7 days')"></ion-radio>
           <ion-label>Weekly</ion-label>
         </div>
         <div class="gsa-icon-period">
-          <ion-radio (click)="getDataBase('start of month')"></ion-radio>
+          <ion-radio (click)="getDataBase('start of month'); getDataBaseTest('start of month');"></ion-radio>
           <ion-label>Monthly</ion-label>
         </div>
         <div class="gsa-icon-period">
-          <ion-radio (click)="getDataBase('start of year')"></ion-radio>
+          <ion-radio (click)="getDataBase('start of year'); getDataBaseTest('start of year')"></ion-radio>
           <ion-label>Yearly</ion-label>
         </div>
         <div class="gsa-icon-period gsa-range">
@@ -42,12 +42,18 @@
           (chartHover)="chartHovered($event)"
           (chartClick)="chartClicked($event)"></canvas>
   </div>
+  <div>
+    <button class='ro-button'  (click)="onShowHideRawData = !onShowHideRawData;" ion-button full>Test Raw Data </button>
+    <div [ngStyle]="{'display': onShowHideRawData ? 'block' : 'none'}">
+      <div *ngFor="let rd of rawData"  >{{rd}}</div>
+    </div>
+  </div>
 </ion-content>
 
 <ion-grid class="range" [ngClass]="{'my-class': isClassVisible }">
   <ion-row>
     <ion-col width-100 >
-      <form (ngSubmit)="RangeChart(f)" #f="ngForm">
+      <form (ngSubmit)="RangeChart(f);RangeChartTest(f)" #f="ngForm">
         <ion-item>
           <ion-input type="date" id="lineChartFromDate" ngModel name="lineChartFromDate"></ion-input>
         </ion-item>

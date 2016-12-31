@@ -22,6 +22,8 @@ import {NgForm} from "@angular/forms";
 })
 export class lineChartPage implements OnInit {
 
+  public onShowHideRawData:boolean=false;
+  public rawData:any=[];
   public isClassVisible:boolean= false;
   public _:any=_;
   public lineChartData:Array<any> = [
@@ -130,7 +132,10 @@ export class lineChartPage implements OnInit {
 
   ionViewDidLoad() {
     this.getDayly();
+    this.getDataBaseTest('start of day');
   }
+
+
 /*It's like function constructor of main Objects*/
   ObjectsInitiate(ObjName, ArrName, arr){
     for (let i = 0; i < ArrName.length; i++) {
@@ -255,6 +260,59 @@ export class lineChartPage implements OnInit {
       }
     }
   }
+
+  /*rowData for Test*/
+  public getDataBaseTest(period){
+
+    let localRawData:any=[];
+    this.SQLiteService.getForLineChartRowData(period).then((data) => {
+      if(data.rows.length>0){
+        for(var i = 0; i < data.rows.length; i++) {
+          localRawData.push(JSON.stringify(data.rows.item(i)));
+        }
+      }
+      this.rawData=localRawData;
+
+    });
+
+  };
+
+  public getDataBaseWeeklyTest(period){
+
+    let localRawData:any=[];
+    this.SQLiteService.getForLineChartWeekRowData(period).then((data) => {
+      if(data.rows.length>0){
+        for(var i = 0; i < data.rows.length; i++) {
+          localRawData.push(JSON.stringify(data.rows.item(i)));
+        }
+      }
+      this.rawData=localRawData;
+
+    });
+
+  };
+
+  public RangeChartTest(form:NgForm){
+    event.preventDefault();
+    let localRawData:any=[];
+    this.isClassVisible = false;
+    let from=`${form.value.lineChartFromDate} 00:00:00`;
+    let to=`${form.value.lineChartToDate} 23:59:59`;
+    this.SQLiteService.getChartRangeRowData(from,to).then((data) => {
+
+      if(data.rows.length > 0) {
+        for(var i = 0; i < data.rows.length; i++) {
+
+          localRawData.push(JSON.stringify(data.rows.item(i)));
+
+        }
+        this.rawData=localRawData;
+      }
+
+    });
+
+  }
+  /**/
 
   public closeWindow(){
     this.isClassVisible = false;

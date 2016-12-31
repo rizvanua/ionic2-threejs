@@ -22,6 +22,8 @@ export class ChartPiePage {
   @ViewChild('pieChart') pieChart;
   public isClassVisible:boolean= false;
   public data:any;
+  public onShowHideRawData:boolean=false;
+  public rawData:any=[];
   public getDatasetMeta:any;
   public pieChartLabels:string[]= [];
   public pieChartData:number[]= [];
@@ -132,13 +134,63 @@ export class ChartPiePage {
 
   ionViewDidLoad() {
     this.getDataBase('start of day');
+    this.getDataBaseTest('start of day');
     /*Test Only data. Remove from poduction version*/
     this.pieChartLabels= ['Download Sales', 'In-Store Sales', 'Mail Sales'];
     this.pieChartData= [300, 500, 100];
     /**/
 
   }
+  /*rowData for Test*/
 
+  public getDataBaseTest(period){
+
+    let localRawData:any=[];
+    this.SQLiteService.getForPieChartRowData(period).then((data) => {
+      if(data.rows.length>0){
+        for(var i = 0; i < data.rows.length; i++) {
+          localRawData.push(JSON.stringify(data.rows.item(i)));
+        }
+      }
+      this.rawData=localRawData;
+
+    });
+
+  };
+
+  getDataBaseWeeklyTest(period){
+    let localRawData:any=[];
+    this.SQLiteService.getForPieChartWeeklyRowData(period).then((data) => {
+      if(data.rows.length>0){
+        for(var i = 0; i < data.rows.length; i++) {
+          localRawData.push(JSON.stringify(data.rows.item(i)));
+        }
+        this.rawData=localRawData;
+      }
+
+    });
+  }
+  RangeChartTest(form:NgForm){
+    event.preventDefault();
+    let localRawData:any=[];
+    this.isClassVisible = false;
+    let from=`${form.value.lineChartFromDate} 00:00:00`;
+    let to=`${form.value.lineChartToDate} 23:59:59`;
+    this.SQLiteService.getChartRangeRowData(from,to).then((data) => {
+
+      if(data.rows.length > 0) {
+        for(var i = 0; i < data.rows.length; i++) {
+
+          localRawData.push(JSON.stringify(data.rows.item(i)));
+
+        }
+        this.rawData=localRawData;
+      }
+
+    });
+
+  }
+  /**/
 
   getDataBase(period){
     this.SQLiteService.getForPieChart(period).then((data) => {
@@ -148,6 +200,7 @@ export class ChartPiePage {
       };
 
       if(data.rows.length > 0) {
+
         for(var i = 0; i < data.rows.length; i++) {
           console.log(JSON.stringify(data.rows.item(i)));
 
