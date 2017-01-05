@@ -121,7 +121,6 @@ export class PopoverComponent  {
     this.LocalStorageService.saveIntoLocalStorage(textObj,'history');
     /**/
     this.SQLiteService.insertIntoMainDB(textObj);
-
     this.close();
     /**/
     /*console.log(this.date._d);
