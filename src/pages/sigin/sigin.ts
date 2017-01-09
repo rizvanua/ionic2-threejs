@@ -3,8 +3,6 @@ import { NavController } from 'ionic-angular';
 import { RegistrationPage } from '../registration/registration';
 import { RecoverpassPage } from '../recoverpass/recoverpass';
 import {FirsttimePage} from '../firsttime/firsttime';
-import {SQLiteService} from "../../services/SQLiteService";
-
 @Component({
   selector: 'sigin',
   templateUrl: 'sigin.html'
@@ -12,16 +10,12 @@ import {SQLiteService} from "../../services/SQLiteService";
 export class SiginComponent {
   text: string;
 
-  constructor(public navCtrl: NavController, public SQLiteService:SQLiteService) {
+  constructor(public navCtrl: NavController) {
     console.log('Hello Sigin Component');
 
   }
 
   ionViewDidLoad() {
-    this.SQLiteService.getFromAuthDB();
-    /*this.SQLiteService.dropTable();*/
-    this.SQLiteService.showAllTables2();
-    this.SQLiteService.showAllTables3();
 
   }
 

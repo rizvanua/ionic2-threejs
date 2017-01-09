@@ -4,7 +4,7 @@ import {ViewController} from 'ionic-angular';
 import {LocalStorageService} from "../../services/LocalStorageService";
 import {returnPointService} from "../../services/returnPointService";
 import { Storage } from '@ionic/storage';
-import {SQLiteService} from "../../services/SQLiteService";
+import {HttpService} from "../../services/HttpService";
 import {Camera} from "ionic-native";
 
 /*
@@ -31,7 +31,7 @@ export class PopoverComponent  {
 
 
   @ViewChild('inputFile') inputFile: any;
-  constructor(public viewCtrl: ViewController, public LocalStorageService:LocalStorageService, private _returnPointService: returnPointService,storage: Storage, public SQLiteService:SQLiteService, /*private emitter:EmitterService*/) {
+  constructor(public viewCtrl: ViewController, public LocalStorageService:LocalStorageService, private _returnPointService: returnPointService,storage: Storage, private HttpService:HttpService) {
     this.bodyPart=viewCtrl.data.bodyPart;
 
   }
@@ -48,20 +48,15 @@ export class PopoverComponent  {
       console.log(err);
     });
 
-    /*FileChooser.open()
-      .then(uri => { console.log(uri)})
-      .catch(e => {console.log(e)});*/
-  /*this.inputFile.nativeElement.click();
-  console.log(this.inputFile.nativeElement.value);*/
+
   }
 
   public Test(){
-  console.log(this.inputFile.nativeElement.value.length);
   if(this.inputFile.nativeElement.value.length>0){
   this.fileName=this.inputFile.nativeElement.value;
 	this.gotFile=true;
   }
-  console.log(this.inputFile.nativeElement.value);
+
   }
 
   public getCamera(){
@@ -77,19 +72,6 @@ export class PopoverComponent  {
     });
   }
 
-  /*public getGallery(){
-    Camera.getPicture({
-      destinationType:0,
-      sourceType:0,
-      targetWidth: 1000,
-      targetHeight: 1000
-    }).then((imageData) => {
-      // imageData is a base64 encoded string
-      this.base64Image = "data:image/jpeg;base64," + imageData;
-    }, (err) => {
-      console.log(err);
-    });
-  }*/
 
    ionViewDidLoad() {
 
@@ -111,8 +93,10 @@ export class PopoverComponent  {
       "name": bp.name,
       'point':bp.point,
       'face':bp.face,
-      "time": new Date()
+      "time": new Date(),
+      'userName':'Test'
     };
+    console.log(new Date());
     this._returnPointService.getPoint(textObj);
     /**/
     this.LocalStorageService.save(textObj,'lastActive');
@@ -120,13 +104,10 @@ export class PopoverComponent  {
     /*Need Remove this when implement SQLiteService*/
     this.LocalStorageService.saveIntoLocalStorage(textObj,'history');
     /**/
-    this.SQLiteService.insertIntoMainDB(textObj);
+    this.HttpService.postData(textObj).subscribe(data=>console.log(data));
     this.close();
     /**/
-    /*console.log(this.date._d);
-    localStorage.setItem('level',num);
-    localStorage.setItem('bodyPart',bp);
-    localStorage.setItem('date',this.date._d)*/
+
   }
 
 

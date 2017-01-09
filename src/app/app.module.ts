@@ -22,14 +22,15 @@ import {EmitterService} from "../services/EmitterService";
 import {LocalStorageService} from "../services/LocalStorageService";
 import {returnPointService} from "../services/returnPointService";
 import { Storage } from '@ionic/storage';
-import {SQLite, Camera, FileChooser} from 'ionic-native';
-import {SQLiteService} from "../services/SQLiteService";
+import {Camera, FileChooser} from 'ionic-native';
 import {FormsModule} from "@angular/forms";
 import {PassClickService} from "../services/PassClickService";
 import {ChartsModule} from "ng2-charts";
 import {ChartPiePage} from "../pages/viewdata/chartPie";
 import {lineChartPage} from "../pages/viewdata/chartLine";
 import {NgNameDirective} from "../directives/ngName";
+import {HttpModule} from "@angular/http";
+import {HttpService} from "../services/HttpService";
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import {NgNameDirective} from "../directives/ngName";
     BrowserModule,
     MomentModule,
     FormsModule,
-    ChartsModule
+    ChartsModule,
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -82,6 +84,6 @@ import {NgNameDirective} from "../directives/ngName";
     ChartPiePage,
     lineChartPage
   ],
-  providers: [EmitterService,LocalStorageService,returnPointService,Storage,SQLite,SQLiteService,PassClickService,Camera,FileChooser]
+  providers: [EmitterService,LocalStorageService,returnPointService,Storage,PassClickService,Camera,FileChooser,HttpService]
 })
 export class AppModule {}

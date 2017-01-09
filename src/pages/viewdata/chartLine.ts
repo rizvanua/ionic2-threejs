@@ -4,7 +4,7 @@
 import { Component,OnInit} from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import {SQLiteService} from "../../services/SQLiteService";
+import {HttpService} from "../../services/HttpService";
 import 'chart.js/dist/Chart.bundle.min.js';
 import * as _ from 'underscore';
 import * as moment from 'moment';
@@ -110,7 +110,7 @@ export class lineChartPage implements OnInit {
   public lineChartLegend:boolean = true;
   public lineChartType:string = 'line';
 
-  constructor(public navCtrl: NavController, public SQLiteService:SQLiteService) {}
+  constructor(public navCtrl: NavController, public HttpService:HttpService) {}
   ngOnInit(){
     let daysArr=this._.range(24);
     let monthDays=moment().daysInMonth()+1;
@@ -131,8 +131,7 @@ export class lineChartPage implements OnInit {
 
 
   ionViewDidLoad() {
-    this.getDayly();
-    this.getDataBaseTest('start of day');
+    this.getDaily();
   }
 
 
@@ -149,46 +148,48 @@ export class lineChartPage implements OnInit {
   }
 
 
-  InnerCycleFunction(ObjName,ItemName,data){
-    if(data.rows.length > 0) {
-      for (let i = 0; i < data.rows.length; i++) {
-
-        if (data.rows.item(i).level == 1) {
-          ObjName.level1[data.rows.item(i)[ItemName]] = data.rows.item(i).count;
+  InnerCycleFunction(ObjName,data){
+    if(data.mainData.length > 0) {
+      for (let i = 0; i < data.mainData.length; i++) {
+        if (data.mainData[i]._id.level == 1) {
+          ObjName.level1[data.mainData[i]._id.time] = data.mainData[i].count;
         }
-        else if (data.rows.item(i).level == 2) {
-          ObjName.level2[data.rows.item(i)[ItemName]] = data.rows.item(i).count;
+        else if (data.mainData[i]._id.level == 2) {
+          ObjName.level2[data.mainData[i]._id.time] = data.mainData[i].count;
         }
-        else if (data.rows.item(i).level == 3) {
-          ObjName.level3[data.rows.item(i)[ItemName]] = data.rows.item(i).count;
+        else if (data.mainData[i]._id.level == 3) {
+          ObjName.level3[data.mainData[i]._id.time] = data.mainData[i].count;
         }
         else {
-          ObjName.level4[data.rows.item(i)[ItemName]] = data.rows.item(i).count;
+          ObjName.level4[data.mainData[i]._id.time] = data.mainData[i].count;
         }
       }
     }
 
   }
 /*fetch data for Day*/
-  getDayly(){
-    console.log('Day');
+  getDaily(){
+    let start = moment().startOf('day').toDate().toISOString();
+    let end = moment().endOf('day').toDate().toISOString();
+    this.getDataBaseTest(start,end);
     let DaylineChartLabels=this._.range(24).map(num => ('0' + num).slice(-2));
-    this.SQLiteService.getForLineChartDay('start of day').then((data) => {
-      this.InnerCycleFunction(this.DayDataObj,'hoursofday',data);
+    this.HttpService.getDataLineDay(start, end).subscribe((data:any)=>{
+      this.InnerCycleFunction(this.DayDataObj,data);
       for (let arr=0; arr<4; arr++){
         this.lineChartData[arr].data=this._.map(this.DayDataObj[`level${arr+1}`], function(num){ return num; });
       }
-
       this.lineChartLabels=DaylineChartLabels;
-
     });
+
 
   }
 /*fetch data for Week*/
   getWeekly(){
-    console.log('Week');
-      this.SQLiteService.getForLineChartWeek('-7 days').then((data) => {
-        this.InnerCycleFunction(this.WeekDataObj,'dayofweek',data);
+    let start = moment().startOf('week').toDate().toISOString();
+    let end = moment().endOf('week').toDate().toISOString();
+    this.getDataBaseTest(start,end);
+    this.HttpService.getDataLineWeek(start, end).subscribe((data) => {
+        this.InnerCycleFunction(this.WeekDataObj,data);
         for (let arr=0; arr<4; arr++){
           this.lineChartData[arr].data=this._.map(this.WeekDataObj[`level${arr+1}`], function(num){ return num; });
         }
@@ -197,20 +198,27 @@ export class lineChartPage implements OnInit {
   }
   /*fetch data for Month*/
   getMonthly(){
+    let start = moment().startOf('month').toDate().toISOString();
+    let end = moment().endOf('month').toDate().toISOString();
+    this.getDataBaseTest(start,end);
     let monthDays=moment().daysInMonth()+1;
-    this.SQLiteService.getForLineChartMonth('start of month').then((data) => {
-      this.InnerCycleFunction(this.MonthDataObj,'daysofmonth',data);
+    this.HttpService.getDataLineMonth(start, end).subscribe((data) => {
+      this.InnerCycleFunction(this.MonthDataObj,data);
       for (let arr=0; arr<4; arr++){
         this.lineChartData[arr].data=this._.map(this.MonthDataObj[`level${arr+1}`], function(num){ return num; });
       }
+
       this.lineChartLabels=this._.range(1,monthDays).map(num => ('0' + num).slice(-2));
     });
   }
 
   /*fetch data for Year*/
   getYearly(){
-    this.SQLiteService.getForLineChartYear('start of year').then((data) => {
-      this.InnerCycleFunction(this.YearDataObj,'monthofyear',data);
+    let start = moment().startOf('year').toDate().toISOString();
+    let end = moment().endOf('year').toDate().toISOString();
+    this.getDataBaseTest(start,end);
+    this.HttpService.getDataLineYear(start, end).subscribe((data) => {
+      this.InnerCycleFunction(this.YearDataObj,data);
       for (let arr=0; arr<4; arr++){
         this.lineChartData[arr].data=this._.map(this.YearDataObj[`level${arr+1}`], function(num){ return num; });
       }
@@ -248,8 +256,9 @@ export class lineChartPage implements OnInit {
           });
         }
         if(y==PrepareArray.length-1){
-          this.SQLiteService.getForLineChartRange(from,to).then((data) => {
-            this.InnerCycleFunction(this.RangeDataObj,'rangetime',data);
+          this.getDataBaseTest(from,to);
+          this.HttpService.getDataLineRange(from,to).subscribe((data) => {
+            this.InnerCycleFunction(this.RangeDataObj,data);
             for (let arr=0; arr<4; arr++){
               this.lineChartData[arr].data=this._.map(this.RangeDataObj[`level${arr+1}`], function(num){ return num; });
             }
@@ -260,59 +269,22 @@ export class lineChartPage implements OnInit {
       }
     }
   }
-
-  /*rowData for Test*/
-  public getDataBaseTest(period){
-
+  //rowData for Test
+  public getDataBaseTest(start,end){
     let localRawData:any=[];
-    this.SQLiteService.getForLineChartRowData(period).then((data) => {
-      if(data.rows.length>0){
-        for(var i = 0; i < data.rows.length; i++) {
-          localRawData.push(JSON.stringify(data.rows.item(i)));
-        }
+    this.HttpService.getTestData(start,end).subscribe((data:any) => {
+      if(data.mainData.length>0){
+        data.mainData.forEach((item,i)=>{
+          localRawData.push(JSON.stringify(data.mainData[i]));
+        });
       }
       this.rawData=localRawData;
 
     });
 
   };
+  //
 
-  public getDataBaseWeeklyTest(period){
-
-    let localRawData:any=[];
-    this.SQLiteService.getForLineChartWeekRowData(period).then((data) => {
-      if(data.rows.length>0){
-        for(var i = 0; i < data.rows.length; i++) {
-          localRawData.push(JSON.stringify(data.rows.item(i)));
-        }
-      }
-      this.rawData=localRawData;
-
-    });
-
-  };
-
-  public RangeChartTest(form:NgForm){
-    event.preventDefault();
-    let localRawData:any=[];
-    this.isClassVisible = false;
-    let from=`${form.value.lineChartFromDate} 00:00:00`;
-    let to=`${form.value.lineChartToDate} 23:59:59`;
-    this.SQLiteService.getChartRangeRowData(from,to).then((data) => {
-
-      if(data.rows.length > 0) {
-        for(var i = 0; i < data.rows.length; i++) {
-
-          localRawData.push(JSON.stringify(data.rows.item(i)));
-
-        }
-        this.rawData=localRawData;
-      }
-
-    });
-
-  }
-  /**/
 
   public closeWindow(){
     this.isClassVisible = false;
@@ -330,5 +302,3 @@ export class lineChartPage implements OnInit {
 
 
 }
-
-

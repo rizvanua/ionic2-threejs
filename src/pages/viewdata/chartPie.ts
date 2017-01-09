@@ -4,10 +4,11 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import {SQLiteService} from "../../services/SQLiteService";
 import 'chart.js/dist/Chart.bundle.min.js';
 import {NgForm} from "@angular/forms";
 import {ViewChild} from "@angular/core/src/metadata/di";
+import {HttpService} from "../../services/HttpService";
+import * as moment from 'moment';
 /*
  Generated class for the Viewdata page.
 
@@ -46,7 +47,6 @@ export class ChartPiePage {
     animation:{
       onComplete: function() {//function to show all tooltips at once a chart is loaded
           let ctx = this.chart.ctx;
-        console.log(ctx);
 
         ctx.font = '18px Arial';
 
@@ -129,134 +129,59 @@ export class ChartPiePage {
     }
   };
 
-  constructor(public navCtrl: NavController, public SQLiteService:SQLiteService) {}
+  constructor(public navCtrl: NavController,private httpService:HttpService) {}
 
 
   ionViewDidLoad() {
-    this.getDataBase('start of day');
-    this.getDataBaseTest('start of day');
-    /*Test Only data. Remove from poduction version*/
-    this.pieChartLabels= ['Download Sales', 'In-Store Sales', 'Mail Sales'];
-    this.pieChartData= [300, 500, 100];
-    /**/
+        this.getDataPie('day');
+
+
 
   }
-  /*rowData for Test*/
-
-  public getDataBaseTest(period){
-
+  //rowData for Test
+  public getDataBaseTest(start,end){
     let localRawData:any=[];
-    this.SQLiteService.getForPieChartRowData(period).then((data) => {
-      if(data.rows.length>0){
-        for(var i = 0; i < data.rows.length; i++) {
-          localRawData.push(JSON.stringify(data.rows.item(i)));
-        }
+    this.httpService.getTestData(start,end).subscribe((data:any) => {
+      if(data.mainData.length>0){
+        data.mainData.forEach((item,i)=>{
+          localRawData.push(JSON.stringify(data.mainData[i]));
+        });
       }
       this.rawData=localRawData;
 
     });
 
   };
-
-  getDataBaseWeeklyTest(period){
-    let localRawData:any=[];
-    this.SQLiteService.getForPieChartWeeklyRowData(period).then((data) => {
-      if(data.rows.length>0){
-        for(var i = 0; i < data.rows.length; i++) {
-          localRawData.push(JSON.stringify(data.rows.item(i)));
-        }
-        this.rawData=localRawData;
+  //
+  public dataBaseFunction(start,end){
+    this.httpService.getDataPie(start,end).subscribe(
+      (data:any)=>{
+        let mainData=data.mainData;
+        this.pieChartLabels=mainData.map((e)=>{
+          return e._id.name;
+        });
+        this.pieChartData=mainData.map((e)=>{
+          return e.count;
+        });
       }
-
-    });
-  }
-  RangeChartTest(form:NgForm){
-    event.preventDefault();
-    let localRawData:any=[];
-    this.isClassVisible = false;
-    let from=`${form.value.lineChartFromDate} 00:00:00`;
-    let to=`${form.value.lineChartToDate} 23:59:59`;
-    this.SQLiteService.getChartRangeRowData(from,to).then((data) => {
-
-      if(data.rows.length > 0) {
-        for(var i = 0; i < data.rows.length; i++) {
-
-          localRawData.push(JSON.stringify(data.rows.item(i)));
-
-        }
-        this.rawData=localRawData;
-      }
-
-    });
-
-  }
-  /**/
-
-  getDataBase(period){
-    this.SQLiteService.getForPieChart(period).then((data) => {
-      let DataObj={
-        countArr:[],
-        unicName:[]
-      };
-
-      if(data.rows.length > 0) {
-
-        for(var i = 0; i < data.rows.length; i++) {
-          console.log(JSON.stringify(data.rows.item(i)));
-
-          DataObj.countArr.push(data.rows.item(i).count);
-          DataObj.unicName.push(data.rows.item(i).name);
-        }
-      }
-      this.pieChartLabels=DataObj.unicName;
-      this.pieChartData=DataObj.countArr;
-    });
-
+    );
   }
 
-  getDataBaseWeekly(period){
-    this.SQLiteService.getForPieChartWeekly(period).then((data) => {
-      let DataObj={
-        countArr:[],
-        unicName:[]
-      };
+  public getDataPie(period){
+    let start = moment().startOf(period).toDate().toISOString();
+    let end = moment().endOf(period).toDate().toISOString();
 
-      if(data.rows.length > 0) {
-        for(var i = 0; i < data.rows.length; i++) {
-          console.log(JSON.stringify(data.rows.item(i)));
-
-          DataObj.countArr.push(data.rows.item(i).count);
-          DataObj.unicName.push(data.rows.item(i).name);
-        }
-      }
-      this.pieChartLabels=DataObj.unicName;
-      this.pieChartData=DataObj.countArr;
-    });
-
+    this.getDataBaseTest(start,end);//test
+    this.dataBaseFunction(start,end);
   }
 
-  RangeChart(form:NgForm){
+  public getDataPieRange(form:NgForm){
     event.preventDefault();
     this.isClassVisible = false;
-    let from=`${form.value.lineChartFromDate} 00:00:00`;
-    let to=`${form.value.lineChartToDate} 23:59:59`;
-    this.SQLiteService.getForPieChartRange(from,to).then((data) => {
-      let DataObj={
-        countArr:[],
-        unicName:[]
-      };
-
-      if(data.rows.length > 0) {
-        for(var i = 0; i < data.rows.length; i++) {
-          console.log(JSON.stringify(data.rows.item(i)));
-
-          DataObj.countArr.push(data.rows.item(i).count);
-          DataObj.unicName.push(data.rows.item(i).name);
-        }
-      }
-      this.pieChartLabels=DataObj.unicName;
-      this.pieChartData=DataObj.countArr;
-    });
+    let start=`${form.value.lineChartFromDate} 00:00:00`;
+    let end=`${form.value.lineChartToDate} 23:59:59`;
+    this.getDataBaseTest(start,end);//test
+    this.dataBaseFunction(start,end);
 
   }
 

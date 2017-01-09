@@ -12,19 +12,19 @@
     <ion-row>
       <ion-list class="gsa-radio-block" radio-group>
       <div class="gsa-icon-period">
-          <ion-radio checked="true" (click)="getDayly();getDataBaseTest('start of day')"></ion-radio>
+          <ion-radio checked="true" (click)="getDaily()"></ion-radio>
           <ion-label>Daily</ion-label>
       </div>
       <div class="gsa-icon-period">
-        <ion-radio  (click)="getWeekly();getDataBaseWeeklyTest('-7 days')"></ion-radio>
+        <ion-radio  (click)="getWeekly()"></ion-radio>
         <ion-label>Weekly</ion-label>
       </div>
       <div class="gsa-icon-period">
-        <ion-radio (click)="getMonthly();getDataBaseTest('start of month')"></ion-radio>
+        <ion-radio (click)="getMonthly()"></ion-radio>
         <ion-label>Monthly</ion-label>
       </div>
       <div class="gsa-icon-period">
-        <ion-radio (click)="getYearly();getDataBaseTest('start of year')"></ion-radio>
+        <ion-radio (click)="getYearly()"></ion-radio>
         <ion-label>Yearly</ion-label>
       </div>
       <div class="gsa-icon-period gsa-range">
@@ -56,7 +56,7 @@
 <ion-grid class="range" [ngClass]="{'my-class': isClassVisible }">
   <ion-row>
     <ion-col width-100 >
-      <form (ngSubmit)="RangeChart(f); RangeChartTest(f)" #f="ngForm">
+      <form (ngSubmit)="RangeChart(f)" #f="ngForm">
         <ion-item>
           <ion-input type="date" id="lineChartFromDate" ngModel name="lineChartFromDate"></ion-input>
         </ion-item>

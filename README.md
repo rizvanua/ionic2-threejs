@@ -23,44 +23,15 @@ $ ionic serve
 To build app you need Cordova 
 
 if you don't have Cordova install Cordova
+
 ```bash
 $ npm install -g cordova@6.4.0 or npm install -g cordova@latest 
 ```
-Then
-Install crosswalk and QLStorage
-```bash
-$ cordova plugin add cordova-plugin-crosswalk-webview@2.2.0 --save
-```
-	then
-	
-```bash	
-$ cordova plugin add cordova-sqlite-storage --save
-```
-
 then
-
-```bash	
-$ ionic plugin add cordova-plugin-camera --save
-```
-
-then 
-  
-```bash  
-  $ ionic plugin add cordova-plugin-splashscreen
-```
-  
-also
 
 ```bash
   $ ionic platform add android
 ```  
-
-and 
-```bash
-$ ionic plugin add http://github.com/don/cordova-filechooser.git
-```   
-  
-  
 
 ## Check dependency
 Check Cordova

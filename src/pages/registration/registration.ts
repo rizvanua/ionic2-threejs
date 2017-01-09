@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import {NgForm} from "@angular/forms";
-import {SQLiteService} from "../../services/SQLiteService";
 
 /*
   Generated class for the Registration page.
@@ -17,13 +16,8 @@ import {SQLiteService} from "../../services/SQLiteService";
 export class RegistrationPage {
   public Name:any;
 
-  constructor(public navCtrl: NavController,storage: Storage, public SQLiteService:SQLiteService) {
-    /*storage.set('name', 'Alex');
-    storage.get('name').then((val) => {
-      this.Name=val;
-      console.log('Your name is', val);
-    });
-    console.log(Storage);*/
+  constructor(public navCtrl: NavController,storage: Storage) {
+
 
   }
 
@@ -42,7 +36,7 @@ export class RegistrationPage {
       password:form.value.password
     };
 
-    this.SQLiteService.insertIntoAuthDB(regData);
+
 
   }
 
