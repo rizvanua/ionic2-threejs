@@ -6,11 +6,12 @@ import {Http, Response, URLSearchParams, Headers} from "@angular/http";
 import 'rxjs/Rx';
 import {Observable} from "rxjs";
 import * as moment from 'moment';
+import {dbConnect} from '../app/dbconnect';
 @Injectable()
 
 export class HttpService{
   private params:URLSearchParams = new URLSearchParams();
-  private baseUrl:string ='http://192.168.1.105:3000';
+  private baseUrl:string= dbConnect;
   private timeDiff:any=moment().utcOffset().valueOf()/60;
 
   constructor (private http: Http){}
@@ -37,6 +38,7 @@ export class HttpService{
    }
 
    getDataLineDay(start,end){
+     console.log(this.baseUrl);
      this.params.set('diff', this.timeDiff);
      this.params.set('start', start);
      this.params.set('end',end);

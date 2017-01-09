@@ -33,6 +33,7 @@ import {HttpModule} from "@angular/http";
 import {HttpService} from "../services/HttpService";
 
 
+
 @NgModule({
   declarations: [
     MyApp,
