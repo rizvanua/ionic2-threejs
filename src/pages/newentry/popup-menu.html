@@ -6,7 +6,7 @@
     <button ion-item id="openFile" class='round-menu-main' style="margin-left: 50px;"(click)="OpenFile()"></button>
   </ion-list>
   <input style="display:none" type="file" capture="camera" #inputCamera accept="image/*">
-  <input style="display:none" #inputFile type="file" (change)="Test()"/>
+  <input style="display:none" #inputFile type="file" accept="image/*" (change)="Test()"/>
   <button ion-item class='round-menu-main' id="closeMenu" style="margin-left: 12px; margin-bottom: 32px;" (click)="close()"></button>
 </div>
 <div class="add-file-name" *ngIf="gotFile"> You added file: {{fileName}}</div>
