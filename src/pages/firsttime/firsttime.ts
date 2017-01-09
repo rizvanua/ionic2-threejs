@@ -18,14 +18,19 @@ export class FirsttimePage {
   @ViewChild('videoPlayer') video;
   public soundMuted:boolean=false;
   public player:any;
+  public startPlay:boolean =false;
   constructor(public navCtrl: NavController) {}
 
 
   ionViewDidLoad() {
-    console.log('Hello FirsttimePage Page');
+    
     /*this.player = YouTubePlayer('video-player2');
     this.player.loadVideoById('sWk-kiOtBeY');
     this.player.playVideo();*/
+  }
+  playVideo(){
+    this.video.nativeElement.play();
+      this.startPlay=true;
   }
 
   soundMute(){

@@ -14,6 +14,7 @@ export class HelloIonicPage {
 
   public player:any;
   public soundMuted:boolean=false;
+  public startPlay:boolean =false;
   constructor(public navCtrl: NavController) {
 
 
@@ -22,10 +23,18 @@ export class HelloIonicPage {
 
     console.log('Hello NewentryPage  Page');
     console.log(this.video);
+    this.video.nativeElement.load();
 
 
   }
   ngAfterContentInit() {
+
+  }
+
+  playVideo(){
+    console.log('clickPlayVideo');
+    this.video.nativeElement.play();
+    this.startPlay=true;
 
   }
 

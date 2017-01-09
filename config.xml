@@ -41,29 +41,9 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="16" />
     <preference name="BackupWebStorage" value="none" />
-    <preference name="loadUrlTimeoutValue" value="120000" />
-    <preference name="ShowSplashScreen" value="true" />
-    <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="3000" />
-    <preference name="AutoHideSplashScreen" value="false" />
-    <preference name="SplashShowOnlyFirstTime" value="false" />
-    <preference name="FadeSplashScreen" value="false" />
-    <preference name="Orientation" value="portrait" />
-    <feature name="SplashScreen">
-        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
-    </feature>
-    <preference name="xwalkVersion" value="19+" />
-    <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
-    <preference name="xwalkCommandLine" value="--ignore-gpu-blacklist" />
-    <preference name="xwalkMode" value="embedded" />
-    <preference name="xwalkMultipleApk" value="true" />
+    <preference name="loadUrlTimeoutValue" value="120000" />      
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
-    <plugin name="cordova-plugin-crosswalk-webview" spec="~2.2.0" />
-    <plugin name="cordova-plugin-splashscreen" spec="~4.0.0" />
-    <plugin name="cordova-plugin-camera" spec="~2.3.1" />
-    <plugin name="com.megster.cordova.FileChooser" spec="http://github.com/don/cordova-filechooser.git" />
     <icon src="resources\android\icon\drawable-xhdpi-icon.png" />
-    <plugin name="cordova-plugin-whitelist" spec="https://github.com/apache/cordova-plugin-whitelist.git" />
 </widget>

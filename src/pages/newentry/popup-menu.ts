@@ -5,8 +5,6 @@ import {LocalStorageService} from "../../services/LocalStorageService";
 import {returnPointService} from "../../services/returnPointService";
 import { Storage } from '@ionic/storage';
 import {HttpService} from "../../services/HttpService";
-import {Camera} from "ionic-native";
-
 /*
  Generated class for the Newentry page.
 
@@ -20,35 +18,25 @@ import {Camera} from "ionic-native";
 export class PopoverComponent  {
 
   public bodyPart:any;
-  public date: any;
-  public levelNum:any;
-  public gotFile=false;
-  public fileName:string;
-  public switchLevel=true;
-  /*Camera*/
-  public base64Image: string;
+   public date: any;
+   public levelNum:any;
+   public gotFile=false;
+   public fileName:string;
+   public switchLevel=true;
+   /*Camera*/
+   public base64Image: string;
+
 
 
 
   @ViewChild('inputFile') inputFile: any;
+  @ViewChild('inputCamera') inputCamera: any;
   constructor(public viewCtrl: ViewController, public LocalStorageService:LocalStorageService, private _returnPointService: returnPointService,storage: Storage, private HttpService:HttpService) {
     this.bodyPart=viewCtrl.data.bodyPart;
 
   }
   public OpenFile(){
-    Camera.getPicture({
-      destinationType:0,
-      sourceType:2,
-      targetWidth: 1000,
-      targetHeight: 1000
-    }).then((imageData) => {
-      // imageData is a base64 encoded string
-      this.base64Image = "data:image/jpeg;base64," + imageData;
-    }, (err) => {
-      console.log(err);
-    });
-
-
+    this.inputFile.nativeElement.click();
   }
 
   public Test(){
@@ -60,16 +48,7 @@ export class PopoverComponent  {
   }
 
   public getCamera(){
-    Camera.getPicture({
-      destinationType: 1,
-      targetWidth: 1000,
-      targetHeight: 1000
-    }).then((imageData) => {
-      // imageData is a base64 encoded string
-      this.base64Image = "data:image/jpeg;base64," + imageData;
-    }, (err) => {
-      console.log(err);
-    });
+    this.inputCamera.nativeElement.click();
   }
 
 

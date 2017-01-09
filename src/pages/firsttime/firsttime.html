@@ -17,10 +17,13 @@
   <ion-grid class="ro-out-marging">
     <ion-row>
       <div id="amination-video">
+        <div class="wrap-play-button">
+          <button (click)="playVideo()" class="play-video player-play" [ngClass]="{'first-hide-play-video':startPlay}"></button>
+        </div>
         <div class="wrap-sound-button">
           <button (click)="soundMute()" class="volume-button" [ngClass]="{'mute':!soundMuted}"></button>
         </div>
-        <video id="video1" width="100%" autoplay #videoPlayer>
+        <video id="video1" width="100%" #videoPlayer>
           <source src="assets/video/motiv.mp4" type="video/mp4">
           Your browser does not support HTML5 video.
         </video>
