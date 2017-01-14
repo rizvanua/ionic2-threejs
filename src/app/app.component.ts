@@ -13,6 +13,7 @@ import { SiginComponent } from '../pages/sigin/sigin';
   templateUrl: 'app.html'
 })
 export class MyApp {
+
   @ViewChild(Nav) nav: Nav;
 
   // make HelloIonicPage the root (or first) page
@@ -38,7 +39,7 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.hideSplashScreen();
-      StatusBar.styleDefault();
+      StatusBar.styleDefault();     
 
     });
   }

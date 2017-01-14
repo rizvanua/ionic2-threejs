@@ -11,7 +11,6 @@ import {ViewChild} from "@angular/core/src/metadata/di";
 })
 export class HelloIonicPage {
   @ViewChild('videoPlayer') video;
-
   public player:any;
   public soundMuted:boolean=false;
   public startPlay:boolean =false;
@@ -20,7 +19,7 @@ export class HelloIonicPage {
 
   }
   ionViewDidLoad() {
-
+    /*this.helloScreen=false;*/
     console.log('Hello NewentryPage  Page');
     console.log(this.video);
     this.video.nativeElement.load();
