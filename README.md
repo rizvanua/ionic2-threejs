@@ -64,4 +64,5 @@ Run app on Android device
 ```bash
 $ ionic run android
 ```
-More info on this can be found on the Ionic.
+To change place where is your server open the file src/app/dbconnect.ts
+Find the stroke 'http://52.10.46.129:8080' and change into the name of your server or URL ('http://MY_SERVER_NAME_MUST_BE_HERE/:8080')
