@@ -5,6 +5,7 @@ import {EmitterService} from "../../services/EmitterService";//Initialization of
 import { Subscription }   from 'rxjs/Subscription';
 import {PopoverComponent} from "./popup-menu";
 import {PassClickService} from "../../services/PassClickService";
+import {HttpService} from "../../services/HttpService";
 /*
   Generated class for the Newentry page.
 
@@ -21,7 +22,7 @@ export class NewentryPage implements OnDestroy{
   bodyPart:string;
   private subscription: Subscription;
 
-  constructor(public navCtrl: NavController,public popoverCtrl: PopoverController,private emitter:EmitterService, public PassClickService:PassClickService) {
+  constructor(public navCtrl: NavController,public popoverCtrl: PopoverController,private emitter:EmitterService, public PassClickService:PassClickService, private HttpService:HttpService) {
     //Here we get data from child component Canvas
     this.subscription=this.emitter.subscribe((msg) => {
       /*console.log(msg);*/
@@ -30,6 +31,7 @@ export class NewentryPage implements OnDestroy{
 
   }
   clearDataPointers(){
+    this.HttpService.postTempData("").subscribe(data=>console.log(data));
     this.PassClickService.next('Click')
   }
 
