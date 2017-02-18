@@ -20,6 +20,14 @@ export class HttpService{
     return Observable.throw(error.json());  }
 
 
+  postTempData(data:any){
+    const body=JSON.stringify({"temp":data});
+
+    const headers=new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post(`${this.baseUrl}/postTemp`,body,{headers:headers})
+      .map((data:Response)=>data.json())
+  }
 
   postData(data:any){
     const body=JSON.stringify(data);
@@ -27,6 +35,12 @@ export class HttpService{
     headers.append('Content-Type','application/json');
     return this.http.post(`${this.baseUrl}/postMainData`,body,{headers:headers})
       .map((data:Response)=>data.json())
+  }
+
+  getTempData(){
+    return this.http.get(`${this.baseUrl}/getTemp`)
+      .map((response:Response)=> response.json())
+      .catch(this.handleError);
   }
 
    getDataPie(start,end){
