@@ -35,6 +35,7 @@ export class MenupagePage {
 
   ionViewDidLoad() {
     /*Get data from server and push into LocalStorage*/
+    window.localStorage.clear();
     this.httpService.getTempData().subscribe((data:any) => {
       if(!data.mainData[0]) return;
       let textObj=data.mainData[0].temp;
