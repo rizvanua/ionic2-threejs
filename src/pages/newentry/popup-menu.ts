@@ -82,8 +82,7 @@ export class PopoverComponent  {
     this.LocalStorageService.save(textObj,bp.name);
     /*Need Remove this when implement SQLiteService*/
     this.LocalStorageService.saveIntoLocalStorage(textObj,'history');
-    /**/
-    this.HttpService.postData(textObj).subscribe(data=>console.log(data));
+    /**/    
     this.close();
     /**/
 
@@ -91,6 +90,7 @@ export class PopoverComponent  {
 
 
   close() {
+   this.HttpService.postTempData(window.localStorage).subscribe(data=>console.log(data));
    this.viewCtrl.dismiss();
    }
 
