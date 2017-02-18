@@ -6,6 +6,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {returnPointService} from "../../services/returnPointService";
 import {LocalStorageService} from "../../services/LocalStorageService";
 import {PassClickService} from "../../services/PassClickService";
+import {HttpService} from "../../services/HttpService";
 /*
  Generated class for the Newentry page.
 
@@ -68,7 +69,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.checkBodyPart(event);
   }
 
-  constructor(public LocalStorageService:LocalStorageService, private _returnPointService:returnPointService, private emitter:EmitterService, private PassClickService:PassClickService) {
+  constructor(public LocalStorageService:LocalStorageService, private httpService:HttpService, private _returnPointService:returnPointService, private emitter:EmitterService, private PassClickService:PassClickService) {
     /*Get data from popup-menu.ts with Object with information about choose level*/
     this.subscription = this._returnPointService.pointItem$.subscribe(
       item => {this.itemData = item;
@@ -85,6 +86,14 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     });
   }
   ngOnInit(){
+    /*Get data from server and push into LocalStorage*/
+    this.httpService.getTempData().subscribe((data:any) => {
+      if(!data.mainData[0]) return;
+      let textObj=data.mainData[0].temp;
+      for (let key in textObj) {
+        window.localStorage[key]=textObj[key];
+      }
+    });
     /*Prepere Objects for PointerMarkers*/
     for(let i=0; i<this.arr.length; i++){
       Object.defineProperty(this.line, this.arr[i],{value:{}, configurable: true, writable: true, enumerable: true });
@@ -192,7 +201,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.CameraRotation();
     (function render() {
       component.animation=requestAnimationFrame(render);
-      console.log(1);
+      //console.log(1);
       component.renderer.render(component.scene, component.camera);
     }());
 
@@ -231,15 +240,15 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     for(let i=0; i<this.arr.length; i++){
       let prop=this.arr[i];
       if(window.localStorage.getItem(prop) != null&&window.localStorage[prop].length>0){
-        console.log(i);
+        //console.log(i);
         let lastActiveObject=this.LocalStorageService.get(prop);
-        console.log(lastActiveObject);
+        //console.log(lastActiveObject);
         this.itemFace=lastActiveObject.face;
         this.itemPoint=lastActiveObject.point;
         this.itemLevel=lastActiveObject.level;
         this.itemName=lastActiveObject.name;
 
-        console.log(lastActiveObject);
+        //console.log(lastActiveObject);
        this.markLastPoint(this.itemFace,this.itemPoint,this.itemLevel,this.itemName);
       }
     }
@@ -473,8 +482,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.renderer.setSize( window.innerWidth, window.innerHeight );
   }
   ngAfterViewInit() {
-    console.log('ngAfterViewInit');
-    console.log(this.line);
+    //console.log('ngAfterViewInit');
+    //console.log(this.line);
     this.createScene();
     this.create3DObject();
     this.pinSet();
