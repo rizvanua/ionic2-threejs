@@ -96,13 +96,17 @@ export class PopoverComponent  {
       "time": new Date(),
       'userName':'Test'
     };
-    console.log(new Date());
+
+
+
+    this.HttpService.postTempData(window.localStorage).subscribe(data=>console.log(data));
+
     this._returnPointService.getPoint(textObj);
     /**/
     this.LocalStorageService.save(textObj,'lastActive');
     this.LocalStorageService.save(textObj,bp.name);
     /*Need Remove this when implement SQLiteService*/
-    this.LocalStorageService.saveIntoLocalStorage(textObj,'history');
+    //this.LocalStorageService.saveIntoLocalStorage(textObj,'history');
     /**/
     this.HttpService.postData(textObj).subscribe(data=>console.log(data));
     this.close();
