@@ -5,6 +5,7 @@ import {MyfeedPage} from "../myfeed/myfeed";
 import {MessagesPage} from "../messages/messages";
 import {ViewdataPage} from "../viewdata/viewdata";
 import {ProfilePage} from "../profile/profile";
+import {HttpService} from "../../services/HttpService";
 
 
 /*
@@ -19,7 +20,7 @@ import {ProfilePage} from "../profile/profile";
 })
 export class MenupagePage {
   pages: Array<{title: string, component: any, icon: string}>;
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, private httpService:HttpService) {
 
     // set our app's pages
     this.pages = [
@@ -33,7 +34,15 @@ export class MenupagePage {
 
 
   ionViewDidLoad() {
-    console.log('Hello MenupagePage Page');
+    /*Get data from server and push into LocalStorage*/
+    this.httpService.getTempData().subscribe((data:any) => {
+      if(!data.mainData[0]) return;
+      let textObj=data.mainData[0].temp;
+      for (let key in textObj) {
+        window.localStorage[key]=textObj[key];
+      }
+    });
+    //console.log('Hello MenupagePage Page');
   }
   openPage(page) {
     // close the menu when clicking a link from the menu
