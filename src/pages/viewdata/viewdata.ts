@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {ChartPiePage} from "./chartPie";
 import {lineChartPage} from "./chartLine";
+import {HttpService} from "../../services/HttpService";
 
 /*
   Generated class for the Viewdata page.
@@ -16,7 +17,7 @@ import {lineChartPage} from "./chartLine";
 export class ViewdataPage {
   charts: Array<{title: string, component: any, icon: string}>;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, private HttpService:HttpService) {
     this.charts = [
       { title: 'Pie Chart', component: ChartPiePage, icon: 'body'},
       { title: 'Line Chart', component: lineChartPage, icon: 'analytics'}
@@ -25,7 +26,14 @@ export class ViewdataPage {
 
 
   ionViewDidLoad() {
-    console.log('Hello ViewdataPage Page');
+    /*Get data from server and push into LocalStorage*/
+    this.HttpService.getTempData().subscribe((data:any) => {
+      if(!data.mainData[0]) return;
+      let textObj=data.mainData[0].temp;
+      for (let key in textObj) {
+        window.localStorage[key]=textObj[key];
+      }
+    });
 
   }
 
