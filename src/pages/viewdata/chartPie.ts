@@ -29,6 +29,8 @@ export class ChartPiePage {
   public pieChartLabels:string[]= [];
   public pieChartData:number[]= [];
   public pieChartType:string='pie';
+  public pieColors:any=[{backgroundColor: ["#e84351", "#434a54", "#3ebf9b", "#4d86dc", "#f3af37","#c3dd00","#9b5094","#9b005f","#e29Ee0","#00e2df","#0073d8","#00dd81","#ff3f00","#f91396","#f91800","#0085e5","#db7f00","#ff2100","#d8ff00","#00ffcb","#934000",
+    "#e100ff"]}];
   public pieOptions:any={
     responsive: true,
     maintainAspectRatio: false, //maintainAspectRatio has unpredictable in this version of chart.js, so we put it in fasle
@@ -157,12 +159,15 @@ export class ChartPiePage {
     this.httpService.getDataPie(start,end).subscribe(
       (data:any)=>{
         let mainData=data.mainData;
-        this.pieChartLabels=mainData.map((e)=>{
-          return e._id.name;
-        });
-        this.pieChartData=mainData.map((e)=>{
-          return e.count;
-        });
+        console.log(mainData.length);
+        if(mainData.length>0){
+          this.pieChartLabels=mainData.map((e)=>{
+            return e._id.name;
+          });
+          this.pieChartData=mainData.map((e)=>{
+            return e.count;
+          });
+        }
       }
     );
   }
