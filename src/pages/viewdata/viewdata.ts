@@ -27,6 +27,7 @@ export class ViewdataPage {
 
   ionViewDidLoad() {
     /*Get data from server and push into LocalStorage*/
+    window.localStorage.clear();
     this.HttpService.getTempData().subscribe((data:any) => {
       if(!data.mainData[0]) return;
       let textObj=data.mainData[0].temp;
