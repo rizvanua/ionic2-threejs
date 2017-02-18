@@ -78,8 +78,8 @@ export class PopoverComponent  {
     console.log(new Date());
     this._returnPointService.getPoint(textObj);
     /**/
-    this.LocalStorageService.save(textObj,'lastActive');
     this.LocalStorageService.save(textObj,bp.name);
+    this.LocalStorageService.save(textObj,'lastActive');    
     /*Need Remove this when implement SQLiteService*/
     this.LocalStorageService.saveIntoLocalStorage(textObj,'history');
     /**/    
